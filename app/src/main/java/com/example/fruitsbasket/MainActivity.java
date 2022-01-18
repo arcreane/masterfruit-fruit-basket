@@ -17,9 +17,7 @@ public class MainActivity extends AppCompatActivity {
         Button m_scoresButton = findViewById(R.id.ScoresBtn);
         Button m_quitButton = findViewById(R.id.ExitBtn);
 
-        m_quitButton.setOnClickListener(view ->{
-            finish();
-        } );
+        m_quitButton.setOnClickListener(view -> finish());
 
         m_scoresButton.setOnClickListener(view -> {
             Intent scores = new Intent(MainActivity.this, Scores.class);
