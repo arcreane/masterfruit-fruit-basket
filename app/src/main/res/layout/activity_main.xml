@@ -10,13 +10,14 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/backgroundmotifs" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true">
 
 
         <LinearLayout
@@ -26,31 +27,40 @@
 
             <TextView
                 android:id="@+id/GameTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Fruity Mastermind"
-                android:textSize="24sp" />
+                android:gravity="center"
+                android:text="@string/welcome_msg"
+                android:background="@color/white"
+                android:textSize="36sp"
+                android:textColor="@color/purple_700"
+                android:padding="10dp"
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
             <Button
                 android:id="@+id/StartGameBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                style="@style/BtnStyle"
                 android:text="Start Game" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
 
             <Button
                 android:id="@+id/ScoresBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                style="@style/BtnStyle"
                 android:text="Display Scores" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
 
             <Button
                 android:id="@+id/ExitBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                style="@style/BtnStyle"
                 android:text="Exit" />
         </LinearLayout>
     </LinearLayout>
