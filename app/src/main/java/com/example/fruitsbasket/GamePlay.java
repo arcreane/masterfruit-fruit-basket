@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 
@@ -83,6 +83,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+        //ArrayList of enum generated automatically
+        ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
+        Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
     }
 }
