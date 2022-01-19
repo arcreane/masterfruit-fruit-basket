@@ -62,6 +62,7 @@
                 android:id="@+id/ExitBtn"
                 style="@style/BtnStyle"
                 android:text="Exit" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -37,6 +38,23 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         registerForContextMenu(Fruit_Two);
         registerForContextMenu(Fruit_Tree);
         registerForContextMenu(Fruit_Four);
+
+        // Test de la fonction Verification de la combinaison playeur
+
+        ArrayList<Fruits> combination = new ArrayList<Fruits>();
+        combination.add(Fruits.BANANA);
+        combination.add(Fruits.KIWI);
+        combination.add(Fruits.PRUNE);
+        combination.add(Fruits.GRAPE);
+
+        ArrayList<Fruits> playerCombination = new ArrayList<Fruits>();
+        playerCombination.add(Fruits.BANANA);
+        playerCombination.add(Fruits.PRUNE);
+        playerCombination.add(Fruits.STRAWBERRY);
+        playerCombination.add(Fruits.GRAPE);
+        String[] verif= Functions.verification(combination,playerCombination);
+        Toast.makeText(this, ""+ Arrays.toString(verif),
+                Toast.LENGTH_SHORT).show();
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
@@ -102,12 +120,13 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
     }
 
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View vue, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, vue, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.player_input_context_menu, menu);
-        menu.setHeaderTitle("Select The Action");
+        menu.setHeaderTitle("Select The Fruit");
     }
 
     @Override
@@ -143,4 +162,5 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         }
         return false;
     }
+
 }
