@@ -7,15 +7,79 @@
     tools:context=".GamePlay">
 
     <LinearLayout
+        android:id="@+id/ScoreLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/light_grey"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/ScoreText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Total Score: " />
+
+        <TextView
+            android:id="@+id/ScoreValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/difficultyTextView"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Play a Game" />
+            android:text="Tries left: " />
+
+        <TextView
+            android:id="@+id/triesLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="10" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/player_guess_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ScoreLayout" />
+
+    <LinearLayout
+        android:id="@+id/board_play_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:background="@color/light_grey"
+        android:layout_below="@id/player_guess_list">
+
+        <TableRow
+            android:id="@+id/board_play"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center">
+        </TableRow>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/guess_validate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/board_play_layout">
+
+        <Button
+            android:id="@+id/guess_validate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Validate"/>
     </LinearLayout>
 </RelativeLayout>
