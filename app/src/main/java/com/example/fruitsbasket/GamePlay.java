@@ -11,6 +11,7 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import java.util.Arrays;
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
     MyRecyclerViewAdapter adapter;
+    ImageSet playerImageset;
+    ImageView focus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,18 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         registerForContextMenu(Fruit_Tree);
         registerForContextMenu(Fruit_Four);
 
-        // Test de la fonction Verification de la combinaison playeur
+        // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
+        Button validate = findViewById(R.id.guess_validate_btn);
+        validate.setOnClickListener(action-> {
+            playerImageset = new ImageSet();
+            playerImageset.setImage1(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit1));
+            playerImageset.setImage2(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit2));
+            playerImageset.setImage3(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit3));
+            playerImageset.setImage4(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit4));
+        });
+
+
+        // Test de la fonction Verification de la combinaison player
 
         ArrayList<Fruits> combination = new ArrayList<Fruits>();
         combination.add(Fruits.BANANA);
@@ -149,37 +163,39 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.player_input_context_menu, menu);
         menu.setHeaderTitle("Select The Fruit");
+        focus = (ImageView) vue;
+        Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
             case (R.id.StrawberryIm):
-                Toast.makeText(this, "we put a Strawberry", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.strawberry);
                 return true;
             case (R.id.BananaIm):
-                Toast.makeText(this, "we put a Banana", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.banana);
                 return true;
             case (R.id.KiwiIm):
-                Toast.makeText(this, "we put a Kiwi", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.kiwi);
                 return true;
             case (R.id.OrangeIm):
-                Toast.makeText(this, "we put a Orange", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.orange);
                 return true;
             case (R.id.RaspberryIm):
-                Toast.makeText(this, "we put a Raspberry", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.raspberry);
                 return true;
             case (R.id.LemonIm):
-                Toast.makeText(this, "we put a Lemon", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.lemon);
                 return true;
             case (R.id.PlumIm):
-                Toast.makeText(this, "we put a Plum", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.plum);
                 return true;
             case (R.id.GrapeIm):
-                Toast.makeText(this, "we put a Grape", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.grape);
                 return true;
             case (R.id.EmptyIm):
-                Toast.makeText(this, "we put nothing", Toast.LENGTH_SHORT).show();
+                focus.setImageResource(R.drawable.empty);
                 return true;
         }
         return false;
