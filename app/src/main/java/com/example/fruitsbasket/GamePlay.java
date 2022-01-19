@@ -48,6 +48,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             playerImageset.setImage2(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit2));
             playerImageset.setImage3(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit3));
             playerImageset.setImage4(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit4));
+            appendRecycler(playerImageset);
         });
 
 
@@ -69,16 +70,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                 Toast.LENGTH_SHORT).show();
 
         // data to populate the RecyclerView with
-//        ArrayList<Bitmap> setOfFruit = new ArrayList<>();
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
-//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
-
         ImageSet imageset1 = new ImageSet();
         imageset1.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
         imageset1.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
@@ -136,6 +127,10 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
     }
 
+    private void appendRecycler(ImageSet playerImageset) {
+
+    }
+
 
     @Override
     public void onItemClick(View view, int position) {
@@ -151,9 +146,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
         ArrayList<StringBuilder> hints = Functions.generateHints(m_fruitsCombine);
         Toast.makeText(this, hints.get(0)+"\n"+hints.get(1), Toast.LENGTH_SHORT).show();
-
-
-
     }
 
 
