@@ -18,5 +18,6 @@ public class GamePlay extends AppCompatActivity {
         ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
+
     }
 }
