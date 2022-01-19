@@ -2,14 +2,14 @@ package com.example.fruitsbasket;
 
 public enum Fruits
 {
-    STRAWBERRY(false, true, "Fraise.jpg"),
-    BANANA(false, false, "Banane.jpg"),
-    RASPBERRY(false, false, "Framboise.jpg"),
-    KIWI(false, true, "Kiwi.jpg"),
-    ORANGE(true, true, "Orange.jpg"),
-    PLUM(true, false, "Prune.jpg"),
-    GRAPE(true, false, "Raisin.jpg"),
-    LEMON(true, true, "Citron.jpg");
+    STRAWBERRY(false, false, "@drawable/strawberry" ),
+    BANANA(false, true, "@drawable/banana" ),
+    RASPBERRY(false, false, "@drawable/raspberry" ),
+    KIWI(false, true, "@drawable/kiwi" ),
+    ORANGE(true, true, "@drawable/orange" ),
+    PLUM(true, false, "@drawable/plum" ),
+    GRAPE(true, false, "@drawable/grape" ),
+    LEMON(true, true, "@drawable/lemon" );
 
     boolean m_bSeed;
     boolean m_bPeelable;

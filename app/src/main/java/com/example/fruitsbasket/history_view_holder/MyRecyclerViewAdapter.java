@@ -1,6 +1,7 @@
 package com.example.fruitsbasket.history_view_holder;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,54 +10,66 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fruitsbasket.ImageSet;
 import com.example.fruitsbasket.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private ArrayList<ImageSet> pieces;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private RecyclerViewOnTouchListener touchListener;
 
     // data is passed into the constructor
-    public MyRecyclerViewAdapter(Context context, List<String> data) {
+    public MyRecyclerViewAdapter(Context context, ArrayList<ImageSet> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.pieces = data;
     }
+
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recycler_main, parent, false);
-//        View view = mInflater.inflate(R.layout.recycler_main2, parent, false);
+        View view = mInflater.inflate(R.layout.fruit_set_display, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    // binds the data to the ImageViews on each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
-//        ImageView imageview = holder.imageViewPiece;
-//        imageview.setTag(position);
-//        imageview.setImageBitmap(pieces.get(postion));
-
+        ImageSet imageViewPiece = pieces.get(position);
+        ImageView imageview = holder.itemViewPiece1;
+        imageview.setTag(position);
+//        imageview.setImageBitmap(imageViewPiece.getImage1());
+        holder.itemViewPiece1.setImageBitmap(imageViewPiece.getImage1());
+        holder.itemViewPiece2.setImageBitmap(imageViewPiece.getImage2());
+        holder.itemViewPiece3.setImageBitmap(imageViewPiece.getImage3());
+        holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return pieces.size();
     }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        ImageView itemViewPiece1;
+        ImageView itemViewPiece2;
+        ImageView itemViewPiece3;
+        ImageView itemViewPiece4;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.fruit_text);
+            this.itemViewPiece1 = (ImageView) itemView.findViewById(R.id.fruit1);
+            this.itemViewPiece2 = (ImageView) itemView.findViewById(R.id.fruit2);
+            this.itemViewPiece3 = (ImageView) itemView.findViewById(R.id.fruit3);
+            this.itemViewPiece4 = (ImageView) itemView.findViewById(R.id.fruit4);
+
             itemView.setOnClickListener(this);
         }
 
@@ -67,8 +80,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
-        return mData.get(id);
+    public ImageSet getItem(int id) {
+        return pieces.get(id);
     }
 
     // allows clicks events to be caught
