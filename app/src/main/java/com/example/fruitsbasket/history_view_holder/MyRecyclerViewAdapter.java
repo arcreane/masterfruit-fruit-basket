@@ -50,6 +50,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
     }
 
+    public void addImageSet(ViewHolder holder, ImageSet newSet, int position){
+        this.pieces.add(newSet);
+//        holder.();
+    }
+
     // total number of rows
     @Override
     public int getItemCount() {

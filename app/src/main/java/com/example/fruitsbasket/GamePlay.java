@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.BitmapFactory;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -24,6 +25,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     MyRecyclerViewAdapter adapter;
     ImageSet playerImageset;
     ImageView focus;
+    View viewClicked;
+    ArrayList<ImageSet> setOfFruit = new ArrayList<>();
+    int counter = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
             playerImageset = new ImageSet();
+            ImageView img = (ImageView) findViewById(R.id.Player_Fruit1);
+            Drawable.ConstantState imdID = img.getDrawable().getConstantState();
+            Toast.makeText(this, ""+ imdID.toString(), Toast.LENGTH_LONG );
             playerImageset.setImage1(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit1));
             playerImageset.setImage2(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit2));
             playerImageset.setImage3(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit3));
@@ -80,7 +87,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         imageset2.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
         imageset2.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
         imageset2.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
-        ArrayList<ImageSet> setOfFruit = new ArrayList<>();
         setOfFruit.add(imageset1);
         setOfFruit.add(imageset2);
 
@@ -128,7 +134,14 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     }
 
     private void appendRecycler(ImageSet playerImageset) {
-
+            int insertIndex = 0;
+            if(playerImageset == null){
+                Toast.makeText(this, "set is null", Toast.LENGTH_LONG).show();
+            }else {
+                setOfFruit.add(insertIndex, playerImageset);
+                adapter.notifyItemInserted(insertIndex);
+//            adapter.notifyDataSetChanged(); // alternate to be checked
+            }
     }
 
 
@@ -156,41 +169,48 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         inflater.inflate(R.menu.player_input_context_menu, menu);
         menu.setHeaderTitle("Select The Fruit");
         focus = (ImageView) vue;
+        viewClicked = vue;
         Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
+        Fruits chosenFruit;
+        int id = 0;
+        switch (viewClicked.getId()){
+            case R.id.fruit1: id = 1; break;
+            case R.id.fruit2: id = 2; break;
+            case R.id.fruit3: id = 3; break;
+            case R.id.fruit4: id = 4; break;
+        }
+
         switch (item.getItemId()){
-            case (R.id.StrawberryIm):
-                focus.setImageResource(R.drawable.strawberry);
+            case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
                 return true;
-            case (R.id.BananaIm):
-                focus.setImageResource(R.drawable.banana);
+            case (R.id.BananaIm): updateSetOfFruit(R.drawable.banana, id);
                 return true;
-            case (R.id.KiwiIm):
-                focus.setImageResource(R.drawable.kiwi);
+            case (R.id.KiwiIm): updateSetOfFruit(R.drawable.kiwi, id);
                 return true;
-            case (R.id.OrangeIm):
-                focus.setImageResource(R.drawable.orange);
+            case (R.id.OrangeIm): updateSetOfFruit(R.drawable.orange, id);
                 return true;
-            case (R.id.RaspberryIm):
-                focus.setImageResource(R.drawable.raspberry);
+            case (R.id.RaspberryIm): updateSetOfFruit(R.drawable.raspberry, id);
                 return true;
-            case (R.id.LemonIm):
-                focus.setImageResource(R.drawable.lemon);
+            case (R.id.LemonIm): updateSetOfFruit(R.drawable.lemon, id);
                 return true;
-            case (R.id.PlumIm):
-                focus.setImageResource(R.drawable.plum);
+            case (R.id.PlumIm): updateSetOfFruit(R.drawable.plum, id);
                 return true;
-            case (R.id.GrapeIm):
-                focus.setImageResource(R.drawable.grape);
+            case (R.id.GrapeIm): updateSetOfFruit(R.drawable.grape, id);
                 return true;
-            case (R.id.EmptyIm):
-                focus.setImageResource(R.drawable.empty);
+            case (R.id.EmptyIm): updateSetOfFruit(R.drawable.empty, id);
                 return true;
         }
         return false;
     }
+
+    private void updateSetOfFruit(int fruit, int id) {
+        focus.setImageResource(fruit);
+        playerImageset.setImage(BitmapFactory.decodeResource(getResources(),fruit), id);
+    }
+
 
 }
