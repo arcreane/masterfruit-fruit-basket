@@ -27,27 +27,33 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         setContentView(R.layout.activity_game_play);
 
         // data to populate the RecyclerView with
-//        ArrayList<String> animalNames = new ArrayList<>();
-//        animalNames.add("Horse");
-//        animalNames.add("Cow");
-//        animalNames.add("Camel");
-//        animalNames.add("Sheep");
-//        animalNames.add("Goat");
-        ArrayList<Bitmap> setOfFruit = new ArrayList<>();
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
-        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
+//        ArrayList<Bitmap> setOfFruit = new ArrayList<>();
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
+//        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
 
+        ImageSet imageset1 = new ImageSet();
+        imageset1.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
+        imageset1.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
+        imageset1.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
+        imageset1.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
+        ImageSet imageset2 = new ImageSet();
+        imageset2.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
+        imageset2.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
+        imageset2.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
+        imageset2.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
+        ArrayList<ImageSet> setOfFruit = new ArrayList<>();
+        setOfFruit.add(imageset1);
+        setOfFruit.add(imageset2);
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.player_guess_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new MyRecyclerViewAdapter(this, animalNames);
         adapter = new MyRecyclerViewAdapter(this, setOfFruit);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -55,12 +61,12 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         TextView mtv = findViewById(R.id.ScoreValue);
         mtv.setText("" + adapter.getItemCount());
 
-        Button addPig = findViewById(R.id.guess_validate_btn);
-        addPig.setOnClickListener(view -> {
-            Bitmap item = BitmapFactory.decodeResource(getResources(),R.drawable.banana);
-            int insertIndex = 2;
-            setOfFruit.add(insertIndex, item);
-            adapter.notifyItemInserted(insertIndex);
+//        Button addPig = findViewById(R.id.guess_validate_btn);
+//        addPig.setOnClickListener(view -> {
+//            Bitmap item = BitmapFactory.decodeResource(getResources(),R.drawable.banana);
+//            int insertIndex = 2;
+//            setOfFruit.add(insertIndex, item);
+//            adapter.notifyItemInserted(insertIndex);
 
             /** ajouter plusieurs elements
              * ArrayList<String> items = new ArrayList<>();
@@ -84,7 +90,8 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
              * data.clear();
              * adapter.notifyDataSetChanged();
              */
-        });
+//        });
+
     }
 
 

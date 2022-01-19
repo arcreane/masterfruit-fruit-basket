@@ -12,6 +12,25 @@ public class ImageSet {
         return image1;
     }
 
+    public void setImage(Bitmap image1, int index) {
+        switch (index){
+            case 1: this.image1 = image1;
+            case 2: this.image2 = image1;
+            case 3: this.image3 = image1;
+            case 4: this.image4 = image1;
+        }
+    }
+
+    public Bitmap getImage(int index) {
+        switch (index){
+            case 1: return this.image1;
+            case 2: return this.image2;
+            case 3: return this.image3;
+            case 4: return this.image4;
+        }
+        return null;
+    }
+
     public void setImage1(Bitmap image1) {
         this.image1 = image1;
     }
