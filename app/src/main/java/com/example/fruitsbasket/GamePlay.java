@@ -107,7 +107,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         super.onCreateContextMenu(menu, vue, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.player_input_context_menu, menu);
-        menu.setHeaderTitle("Select The Action");
+        menu.setHeaderTitle("Select The Fruit");
     }
 
     @Override
