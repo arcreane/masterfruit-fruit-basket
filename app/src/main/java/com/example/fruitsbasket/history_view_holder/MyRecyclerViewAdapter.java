@@ -56,7 +56,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return pieces.size();//mData.size();
     }
 
     // stores and recycles views as they are scrolled off screen
@@ -66,7 +66,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         ViewHolder(View itemView) {
             super(itemView);
-            this.itemViewPiece = (ImageView) itemView.findViewById(R.id.fruit_img);
+            this.itemViewPiece = (ImageView) itemView.findViewById(R.id.fruit_img1);
 
 //            myTextView = itemView.findViewById(R.id.fruit_text);
             itemView.setOnClickListener(this);
@@ -83,8 +83,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
-        return mData.get(id);
+    public Bitmap getItem(int id) {
+        return pieces.get(id);
     }
 
     // allows clicks events to be caught

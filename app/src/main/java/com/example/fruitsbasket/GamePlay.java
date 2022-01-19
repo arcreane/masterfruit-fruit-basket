@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,16 +33,15 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 //        animalNames.add("Camel");
 //        animalNames.add("Sheep");
 //        animalNames.add("Goat");
-        Bitmap image = (Bitmap) data.getExtras().get("orange");
         ArrayList<Bitmap> setOfFruit = new ArrayList<>();
-        setOfFruit.add(getDrawable("banana"));
-        setOfFruit.add(grape.);
-        setOfFruit.add("kiwi");
-        setOfFruit.add("lemon");
-        setOfFruit.add("Orange");
-        setOfFruit.add("prune");
-        setOfFruit.add("raspberry");
-        setOfFruit.add("strawberry");
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
+        setOfFruit.add(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
 
 
         // set up the RecyclerView
@@ -57,9 +57,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
         Button addPig = findViewById(R.id.guess_validate_btn);
         addPig.setOnClickListener(view -> {
-            String item = "Pig";
+            Bitmap item = BitmapFactory.decodeResource(getResources(),R.drawable.banana);
             int insertIndex = 2;
-            animalNames.add(insertIndex, item);
+            setOfFruit.add(insertIndex, item);
             adapter.notifyItemInserted(insertIndex);
 
             /** ajouter plusieurs elements
@@ -80,7 +80,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
              * adapter.notifyItemRangeRemoved(startIndex, count);
              */
 
-            /** Suupreesion de tous les éléments
+            /** Supression de tous les éléments
              * data.clear();
              * adapter.notifyDataSetChanged();
              */
