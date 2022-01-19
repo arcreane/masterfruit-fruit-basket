@@ -37,27 +37,21 @@ public class Functions {
     }
 
     /**
-     * Generates the two hints
+     * Generates the two hints "Peelable" at index 0 and "with Seeds" at index 1
      * @param fruitCombination
-     * @return
+     * @return An Array of 2 StringBuilders
      */
-    public static ArrayList<String> generateHints(ArrayList<Fruits> fruitCombination){
-        ArrayList<String> hint = new ArrayList<>();
+    public static ArrayList<StringBuilder> generateHints(ArrayList<Fruits> fruitCombination){
+        ArrayList<StringBuilder> hint = new ArrayList<>();
         StringBuilder hintPeel = new StringBuilder();
         StringBuilder hintSeed = new StringBuilder();
         for (int i = 0; i < fruitCombination.size(); i++) {
-            Fruits fruit = (Fruits) fruitCombination.get(i);
-            if(fruit.isM_bPeelable()){
-                hintPeel.append("true ");
-            } else {
-                hintPeel.append("false ");
-            }
-            if(fruit.isM_bSeed()){
-                hintSeed.append("true ");
-            } else {
-                hintPeel.append("false ");
-            }
+            Fruits fruit = fruitCombination.get(i);
+            hintPeel.append(fruit.isM_bPeelable()).append(" ");
+            hintSeed.append(fruit.isM_bSeed()).append(" ");
         }
+        hint.add(hintPeel);
+        hint.add(hintSeed);
         return hint;
     }
 

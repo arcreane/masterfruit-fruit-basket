@@ -11,11 +11,14 @@ public enum Fruits
     GRAPE(true, false, "Raisin.jpg"),
     LEMON(true, true, "Citron.jpg");
 
-    public boolean m_bSeed;
-    public boolean m_bPeelable;
-    public String m_sFruitIcon;
+    boolean m_bSeed;
+    boolean m_bPeelable;
+    String m_sFruitIcon;
 
     Fruits(boolean m_bSeed, boolean m_bPeelable, String m_sFruitIcon) {
+        this.m_bSeed = m_bSeed;
+        this.m_bPeelable = m_bPeelable;
+        this.m_sFruitIcon = m_sFruitIcon;
     }
 
     public boolean isM_bSeed() {

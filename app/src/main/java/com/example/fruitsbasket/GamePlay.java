@@ -19,5 +19,10 @@ public class GamePlay extends AppCompatActivity {
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
 
+        ArrayList<StringBuilder> hints = Functions.generateHints(m_fruitsCombine);
+        Toast.makeText(this, hints.get(0)+"\n"+hints.get(1), Toast.LENGTH_SHORT).show();
+
+
+
     }
 }
