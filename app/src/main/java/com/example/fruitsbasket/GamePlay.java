@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -23,6 +24,23 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
+
+        // Test de la fonction Verification de la combinaison playeur
+
+        ArrayList<Fruits> combination = new ArrayList<Fruits>();
+        combination.add(Fruits.BANANA);
+        combination.add(Fruits.KIWI);
+        combination.add(Fruits.PRUNE);
+        combination.add(Fruits.GRAPE);
+
+        ArrayList<Fruits> playerCombination = new ArrayList<Fruits>();
+        playerCombination.add(Fruits.BANANA);
+        playerCombination.add(Fruits.PRUNE);
+        playerCombination.add(Fruits.STRAWBERRY);
+        playerCombination.add(Fruits.GRAPE);
+        String[] verif= Functions.verification(combination,playerCombination);
+        Toast.makeText(this, ""+ Arrays.toString(verif),
+                Toast.LENGTH_SHORT).show();
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
@@ -88,4 +106,10 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
     }
+
+
+
+
+
+
 }
