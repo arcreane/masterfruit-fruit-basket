@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,17 +26,29 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         setContentView(R.layout.activity_game_play);
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
+//        ArrayList<String> animalNames = new ArrayList<>();
+//        animalNames.add("Horse");
+//        animalNames.add("Cow");
+//        animalNames.add("Camel");
+//        animalNames.add("Sheep");
+//        animalNames.add("Goat");
+        Bitmap image = (Bitmap) data.getExtras().get("orange");
+        ArrayList<Bitmap> setOfFruit = new ArrayList<>();
+        setOfFruit.add(getDrawable("banana"));
+        setOfFruit.add(grape.);
+        setOfFruit.add("kiwi");
+        setOfFruit.add("lemon");
+        setOfFruit.add("Orange");
+        setOfFruit.add("prune");
+        setOfFruit.add("raspberry");
+        setOfFruit.add("strawberry");
+
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.player_guess_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyRecyclerViewAdapter(this, animalNames);
+//        adapter = new MyRecyclerViewAdapter(this, animalNames);
+        adapter = new MyRecyclerViewAdapter(this, setOfFruit);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
