@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Strawberry" android:id="@+id/StrawberryIm" />
+    <item android:title="Banana" android:id="@+id/BananaIm"/>
+    <item android:title="Kiwi" android:id="@+id/KiwiIm"/>
+    <item android:title="Orange" android:id="@+id/OrangeIm" />
+    <item android:title="Lemon" android:id="@+id/LemonIm"/>
+    <item android:title="Raspberry"  android:id="@+id/RaspberryIm"/>
+    <item android:title="Plum" android:id="@+id/PlumIm" />
+    <item android:title="Grape" android:id="@+id/GrapeIm" />
+    <item android:title="Empty" android:id="@+id/EmptyIm" />
+</menu>

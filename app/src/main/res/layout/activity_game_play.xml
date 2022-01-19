@@ -69,22 +69,22 @@
             android:background="@color/white">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/Player_Fruit1"
                 style="@style/ImageView"
                 app:srcCompat="@drawable/kiwi"/>
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/Player_Fruit2"
                 style="@style/ImageView"
                 app:srcCompat="@drawable/banana"/>
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/Player_Fruit3"
                 style="@style/ImageView"
                 app:srcCompat="@drawable/grape" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/Player_Fruit4"
                 style="@style/ImageView"
                 app:srcCompat="@drawable/strawberry" />
 
