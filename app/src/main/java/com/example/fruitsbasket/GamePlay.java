@@ -24,6 +24,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     MyRecyclerViewAdapter adapter;
     ImageSet playerImageset;
     ImageView focus;
+    ArrayList<Fruits> gameCombination = Functions.generateFruitCombination();
+    ArrayList<Fruits> playerCombination = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +51,14 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             playerImageset.setImage2(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit2));
             playerImageset.setImage3(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit3));
             playerImageset.setImage4(BitmapFactory.decodeResource(getResources(), R.id.Player_Fruit4));
+
+            // Returns an Array of Strings with V, X or O
+            String[] verif= Functions.verification(gameCombination, playerCombination);
+
+            playerCombination.add(Fruits.(Fruit_One.getContentDescription()));
+
         });
 
-
-        // Test de la fonction Verification de la combinaison player
-
-        ArrayList<Fruits> combination = new ArrayList<Fruits>();
-        combination.add(Fruits.BANANA);
-        combination.add(Fruits.KIWI);
-        combination.add(Fruits.PLUM);
-        combination.add(Fruits.GRAPE);
-
-        ArrayList<Fruits> playerCombination = new ArrayList<Fruits>();
-        playerCombination.add(Fruits.BANANA);
-        playerCombination.add(Fruits.PLUM);
-        playerCombination.add(Fruits.STRAWBERRY);
-        playerCombination.add(Fruits.GRAPE);
-        String[] verif= Functions.verification(combination,playerCombination);
-        Toast.makeText(this, ""+ Arrays.toString(verif),
-                Toast.LENGTH_SHORT).show();
 
         // data to populate the RecyclerView with
 //        ArrayList<Bitmap> setOfFruit = new ArrayList<>();
@@ -164,7 +156,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         inflater.inflate(R.menu.player_input_context_menu, menu);
         menu.setHeaderTitle("Select The Fruit");
         focus = (ImageView) vue;
-        Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -172,6 +164,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         switch (item.getItemId()){
             case (R.id.StrawberryIm):
                 focus.setImageResource(R.drawable.strawberry);
+                focus.setContentDescription("STRAWBERRY");
                 return true;
             case (R.id.BananaIm):
                 focus.setImageResource(R.drawable.banana);
