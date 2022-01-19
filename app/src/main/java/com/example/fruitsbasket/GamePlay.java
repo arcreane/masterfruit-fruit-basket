@@ -44,12 +44,12 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         ArrayList<Fruits> combination = new ArrayList<Fruits>();
         combination.add(Fruits.BANANA);
         combination.add(Fruits.KIWI);
-        combination.add(Fruits.PRUNE);
+        combination.add(Fruits.PLUM);
         combination.add(Fruits.GRAPE);
 
         ArrayList<Fruits> playerCombination = new ArrayList<Fruits>();
         playerCombination.add(Fruits.BANANA);
-        playerCombination.add(Fruits.PRUNE);
+        playerCombination.add(Fruits.PLUM);
         playerCombination.add(Fruits.STRAWBERRY);
         playerCombination.add(Fruits.GRAPE);
         String[] verif= Functions.verification(combination,playerCombination);
@@ -117,6 +117,12 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         //ArrayList of enum generated automatically
         ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
+
+
+        ArrayList<StringBuilder> hints = Functions.generateHints(m_fruitsCombine);
+        Toast.makeText(this, hints.get(0)+"\n"+hints.get(1), Toast.LENGTH_SHORT).show();
+
+
 
     }
 
