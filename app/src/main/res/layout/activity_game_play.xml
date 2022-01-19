@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textSize="16dp"
             android:text="Total Score: " />
 
         <TextView
@@ -26,13 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textSize="16dp"
             android:text="0" />
 
         <TextView
-            android:id="@+id/difficultyTextView"
+            android:id="@+id/triesTitle"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="16dp"
             android:text="Tries left: " />
 
         <TextView
@@ -41,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
+            android:textSize="16dp"
             android:text="10" />
 
     </LinearLayout>
@@ -48,7 +52,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/player_guess_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="510dp"
         android:layout_below="@id/ScoreLayout" />
 
     <LinearLayout

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fruitsbasket.GamePlay;
 import com.example.fruitsbasket.ImageSet;
 import com.example.fruitsbasket.R;
 
@@ -48,6 +49,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.itemViewPiece2.setImageBitmap(imageViewPiece.getImage2());
         holder.itemViewPiece3.setImageBitmap(imageViewPiece.getImage3());
         holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
+        holder.itemHint1.setText(GamePlay.SolutionHints[0]);
+        holder.itemHint1.setText(GamePlay.SolutionHints[1]);
+        holder.itemHint1.setText(GamePlay.SolutionHints[2]);
+        holder.itemHint1.setText(GamePlay.SolutionHints[3]);
     }
 
     public void addImageSet(ViewHolder holder, ImageSet newSet, int position){
@@ -67,6 +72,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView itemViewPiece2;
         ImageView itemViewPiece3;
         ImageView itemViewPiece4;
+        TextView itemHint1;
+        TextView itemHint2;
+        TextView itemHint3;
+        TextView itemHint4;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -74,6 +83,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.itemViewPiece2 = (ImageView) itemView.findViewById(R.id.fruit2);
             this.itemViewPiece3 = (ImageView) itemView.findViewById(R.id.fruit3);
             this.itemViewPiece4 = (ImageView) itemView.findViewById(R.id.fruit4);
+            this.itemHint1 = (TextView) itemView.findViewById(R.id.hint1);
+            this.itemHint2 = (TextView) itemView.findViewById(R.id.hint2);
+            this.itemHint3 = (TextView) itemView.findViewById(R.id.hint3);
+            this.itemHint4 = (TextView) itemView.findViewById(R.id.hint4);
 
             itemView.setOnClickListener(this);
         }
