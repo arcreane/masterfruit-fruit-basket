@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -23,6 +27,16 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
+        //Find the images where we put the context view menu
+        ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
+        ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);
+        ImageView Fruit_Tree = findViewById(R.id.Player_Fruit3);
+        ImageView Fruit_Four = findViewById(R.id.Player_Fruit4);
+
+        registerForContextMenu(Fruit_One);
+        registerForContextMenu(Fruit_Two);
+        registerForContextMenu(Fruit_Tree);
+        registerForContextMenu(Fruit_Four);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
@@ -78,7 +92,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -87,5 +100,47 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View vue, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, vue, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.player_input_context_menu, menu);
+        menu.setHeaderTitle("Select The Action");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case (R.id.StrawberryIm):
+                Toast.makeText(this, "we put a Strawberry", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.BananaIm):
+                Toast.makeText(this, "we put a Banana", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.KiwiIm):
+                Toast.makeText(this, "we put a Kiwi", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.OrangeIm):
+                Toast.makeText(this, "we put a Orange", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.RaspberryIm):
+                Toast.makeText(this, "we put a Raspberry", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.LemonIm):
+                Toast.makeText(this, "we put a Lemon", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.PlumIm):
+                Toast.makeText(this, "we put a Plum", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.GrapeIm):
+                Toast.makeText(this, "we put a Grape", Toast.LENGTH_SHORT).show();
+                return true;
+            case (R.id.EmptyIm):
+                Toast.makeText(this, "we put nothing", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 }
