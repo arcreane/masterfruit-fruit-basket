@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ScoreBaseSQLite extends SQLiteOpenHelper {
-    private static final String TABLE_SCORES = "TABLES_SCORES";
+    private static final String TABLE_SCORES = "Tables_scores";
     private static final String COL_ID = "ID";
-    private static final String COL_NAME = "NAME";
-    private static final String COL_DATE = "DATE";
-    private static final String COL_SCORE = "SCORES";
+    private static final String COL_NAME = "Name";
+    private static final String COL_DATE = "Date";
+    private static final String COL_SCORE = "Scores";
 
     private static final String CREATE_BDD = "CREATE TABLE "+ TABLE_SCORES +
             " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+

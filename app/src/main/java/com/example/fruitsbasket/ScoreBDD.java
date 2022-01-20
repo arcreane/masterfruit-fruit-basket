@@ -78,7 +78,7 @@ public class ScoreBDD {
      * @return int
      */
     public int removeScore(String name){
-        return bdd.delete(TABLE_SCORE, COL_NAME + " = " + name, null);
+        return bdd.delete(TABLE_SCORE, COL_NAME + " = \"" + name + "\"", null);
     }
 
     /**
