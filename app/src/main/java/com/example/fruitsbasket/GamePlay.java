@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 
 import android.graphics.drawable.Drawable;
@@ -56,7 +58,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, ""+ Arrays.toString(Functions.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
 
 
-        // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
+        /** Button VALIDATE
+         * Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
+         */
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
             appendRecycler(playerImageset);
@@ -65,25 +69,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             counterDisplay.setText("" + counter);
             CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
             playerImageset.setCheck(CombinationCheck);
-//            Toast.makeText(this, ""+ Arrays.toString(CombinationCheck),Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
+            checkGameStatus();
         });
-
-
-
-        // data to populate the RecyclerView with
-//        ImageSet imageset1 = new ImageSet();
-//        imageset1.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
-//        imageset1.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
-//        imageset1.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
-//        imageset1.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
-//        ImageSet imageset2 = new ImageSet();
-//        imageset2.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
-//        imageset2.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
-//        imageset2.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
-//        imageset2.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
-//        setOfFruit.add(imageset1);
-//        setOfFruit.add(imageset2);
 
 
         // set up the RecyclerView
@@ -95,6 +83,34 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
         TextView mtv = findViewById(R.id.ScoreValue);
         mtv.setText("" + adapter.getItemCount());
+    }
+
+    private void checkGameStatus() {
+        int Vcount = 0;
+        for (int i = 0; i <4; i++) {
+            if(CombinationCheck[i].equals("V")) Vcount ++;
+        }
+        if(Vcount == 4){
+            System.out.println("You won");
+            ShowAlertBox("Congratulations", "You won this Game. Do you want to add your Name to the Hall of Fame ?");
+        }else if(counter == 0){
+            System.out.println("end of game");
+            ShowAlertBox("So Bad ...", "You You loose try again !");
+        }
+    }
+
+    private void ShowAlertBox(String title, String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -191,6 +207,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return true;
 
     }
+
 
     //Méthode qui se déclenchera au clic sur un item
     @Override
