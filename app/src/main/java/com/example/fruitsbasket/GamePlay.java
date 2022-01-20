@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -191,21 +192,33 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return true;
 
     }
+
     //Méthode qui se déclenchera au clic sur un item
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.indiceNumerbe1:
+                LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
+                mHintSeed.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
 
-                return true;
             case R.id.indiceNumerbe2:
+                LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
+                mHintPeel.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
-                return true;
+
+
         }
+
         return false;
     }
+
+
+
+
+
+
 
     private void updateSetOfFruit(int fruit, int id) {
         boolean chosen = false;
@@ -219,4 +232,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit), id);
         }
     }
+
+
 }
