@@ -1,25 +1,31 @@
 package com.example.fruitsbasket;
 
+import android.sax.Element;
+
+import java.util.HashMap;
+
 public enum Fruits
 {
-    STRAWBERRY(false, false, "&drawable/strawberry" ),
-    BANANA(false, true, "&drawable/banana" ),
-    RASPBERRY(false, false, "&drawable/raspberry" ),
-    KIWI(false, true, "&drawable/kiwi" ),
-    ORANGE(true, true, "&drawable/orange" ),
-    PLUM(true, false, "&drawable/plum" ),
-    GRAPE(true, false, "&drawable/grape" ),
-    LEMON(true, true, "&drawable/lemon" ),
-    EMPTY(false, false, "&drawable/empty" );
+    STRAWBERRY(false, false, R.drawable.strawberry, R.id.StrawberryIm ),
+    BANANA(false, true, R.drawable.banana,  R.id.BananaIm),
+    RASPBERRY(false, false, R.drawable.raspberry, R.id.RaspberryIm ),
+    KIWI(false, true, R.drawable.kiwi, R.id.KiwiIm ),
+    ORANGE(true, true, R.drawable.orange, R.id.OrangeIm ),
+    PLUM(true, false, R.drawable.plum, R.id.PlumIm ),
+    GRAPE(true, false, R.drawable.grape, R.id.GrapeIm ),
+    LEMON(true, true, R.drawable.lemon,  R.id.LemonIm),
+    EMPTY(false, false, R.drawable.empty, R.id.EmptyIm );
 
     public boolean m_bSeed;
     public boolean m_bPeelable;
-    public String m_sFruitIcon;
+    public int m_iFruitIcon;
+    public int m_iMenuiId;
 
-    Fruits(boolean m_bSeed, boolean m_bPeelable, String m_sFruitIcon) {
-        this.m_bSeed = m_bSeed;
-        this.m_bPeelable = m_bPeelable;
-        this.m_sFruitIcon = m_sFruitIcon;
+    Fruits(boolean p_bSeed, boolean p_bPeelable, int p_sFruitIcon, int p_iMenuiId) {
+        this.m_bSeed = p_bSeed;
+        this.m_bPeelable = p_bPeelable;
+        this.m_iFruitIcon = p_sFruitIcon;
+        this.m_iMenuiId = p_iMenuiId;
     }
 
     public String isM_bSeed() {
@@ -32,5 +38,13 @@ public enum Fruits
         if(this.m_bPeelable){
             return "true";
         }else return "false";
+    }
+
+    public int getFruitIcon() {
+        return m_iFruitIcon;
+    }
+
+    public int getMenuiId() {
+        return m_iMenuiId;
     }
 }

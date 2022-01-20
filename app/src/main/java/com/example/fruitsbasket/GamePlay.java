@@ -1,9 +1,11 @@
 package com.example.fruitsbasket;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 
 import android.graphics.drawable.Drawable;
@@ -21,6 +23,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -61,30 +66,25 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
-            appendRecycler(playerImageset);
-            counter--;
-            updateCounter();
-            CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
-            playerImageset.setCheck(CombinationCheck);
-//            Toast.makeText(this, ""+ Arrays.toString(CombinationCheck),Toast.LENGTH_SHORT).show();
+
+
+            if(PlayerCombination.contains(Fruits.EMPTY)){
+               alertValidateEmpty();
+               System.out.println(PlayerCombination);
+            }else{
+                appendRecycler(playerImageset);
+                counter--;
+                updateCounter();
+                TextView counterDisplay = findViewById(R.id.triesLeft);
+                counterDisplay.setText("" + counter);
+                CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
+                playerImageset.setCheck(CombinationCheck);
+            }
+
+
             Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
-
-
-        // data to populate the RecyclerView with
-//        ImageSet imageset1 = new ImageSet();
-//        imageset1.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
-//        imageset1.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
-//        imageset1.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
-//        imageset1.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
-//        ImageSet imageset2 = new ImageSet();
-//        imageset2.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
-//        imageset2.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
-//        imageset2.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
-//        imageset2.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
-//        setOfFruit.add(imageset1);
-//        setOfFruit.add(imageset2);
 
 
         // set up the RecyclerView
@@ -120,16 +120,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        //ArrayList of enum generated automatically
-        ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
-        Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
-
-
-        ArrayList<String[]> hints = Functions.generateHints(m_fruitsCombine);
-        Toast.makeText(this, hints.get(0).toString()+"\n"+hints.get(1).toString(), Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -139,7 +129,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         inflater.inflate(R.menu.player_input_context_menu, menu);
         menu.setHeaderTitle("Select The Fruit");
         focus = (ImageView) vue;
-        Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -151,44 +140,21 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             case R.id.Player_Fruit3: id = 2; break;
             case R.id.Player_Fruit4: id = 3; break;
         }
-        ContextMenu.ContextMenuInfo toto = item.getMenuInfo();
 
-        switch (item.getItemId()){
-
-            case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
-                PlayerCombination.set(id, Fruits.STRAWBERRY);
+        //Which item has been selected ?
+        int selectedFruit = item.getItemId();
+        //Update PlayerCombination and array for recycler view
+        for(Fruits f : Fruits.values()) {
+            if(f.getMenuiId() == selectedFruit) {
+                updateSetOfFruit(f.getFruitIcon(), id);
+                PlayerCombination.set(id, f);
                 return true;
-            case (R.id.BananaIm): updateSetOfFruit(R.drawable.banana, id);
-                PlayerCombination.set(id, Fruits.BANANA);
-                return true;
-            case (R.id.KiwiIm): updateSetOfFruit(R.drawable.kiwi, id);
-                PlayerCombination.set(id, Fruits.KIWI);
-                return true;
-            case (R.id.OrangeIm): updateSetOfFruit(R.drawable.orange, id);
-                PlayerCombination.set(id, Fruits.ORANGE);
-                return true;
-            case (R.id.RaspberryIm): updateSetOfFruit(R.drawable.raspberry, id);
-                PlayerCombination.set(id, Fruits.RASPBERRY);
-                return true;
-            case (R.id.LemonIm): updateSetOfFruit(R.drawable.lemon, id);
-                PlayerCombination.set(id, Fruits.LEMON);
-                return true;
-            case (R.id.PlumIm): updateSetOfFruit(R.drawable.plum, id);
-                PlayerCombination.set(id, Fruits.PLUM);
-                return true;
-            case (R.id.GrapeIm): updateSetOfFruit(R.drawable.grape, id);
-                PlayerCombination.set(id, Fruits.GRAPE);
-                return true;
-            case (R.id.EmptyIm): updateSetOfFruit(R.drawable.empty, id);
-                PlayerCombination.set(id, Fruits.EMPTY);
-                return true;
+            }
         }
         return false;
     }
 
-
     //create hintMenu.
-    //Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du téléphone
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
@@ -202,6 +168,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     //Méthode qui se déclenchera au clic sur un item
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (hintdeduction < 3) {
 
             //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
@@ -217,7 +184,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                         hintUsed = 1;
 
                         counter -= hintdeduction;
-                        Toast.makeText(this, "vous avez perdu " + hintdeduction +  " essais il vous reste : "+ counter, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
                     }
                     break;
 
@@ -232,26 +199,40 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                         hintdeduction++;
                         hintUsed = 2;
                         counter -= hintdeduction;
-                        Toast.makeText(this, "vous avez perdu " + hintdeduction +  " essais il vous reste : "+ counter, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
 
 
                     }
             }
-        }else{
+        } else {
             Toast.makeText(this, "You already used alL Hints", Toast.LENGTH_SHORT).show();
         }
         updateCounter();
 
         return false;
-
     }
+
+    /**
+     * Shows a Dialog box when Player validates his board with empty spaces
+     */
+    private void alertValidateEmpty(){
+        AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
+        alertDialog.setTitle("Stop!");
+        alertDialog.setMessage("You can't submit whit an empty space!");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
+    }
+
+
+
 
     private void updateSetOfFruit(int fruit, int id) {
         boolean chosen = false;
         for (int i = 0; i < 4; i++) {
             if(chosenFruit[i] == fruit) {chosen = true;}
         }
-        if(chosen) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
+        if(chosen && fruit != Fruits.EMPTY.getFruitIcon()) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
         else {
             chosenFruit[id] = fruit;
             focus.setImageResource(fruit);
