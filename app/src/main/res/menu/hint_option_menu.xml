@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="Indice Number 1" android:id="@+id/indiceNumerbe1" />
-    <item android:title="Indide Number 2" android:id="@+id/indiceNumerbe2"/>
+    <item android:title="Indice Seed" android:id="@+id/indiceSeed" />
+    <item android:title="Indide Peel" android:id="@+id/indicePeel"/>
 </menu>

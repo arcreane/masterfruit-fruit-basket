@@ -31,6 +31,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     ArrayList<Fruits> GameCombination = new ArrayList<>();
     ArrayList<Fruits> PlayerCombination = new ArrayList<>();
     String[] CombinationCheck = new String[4];
+    int hintdeduction = 1;
+    int hintUsed=0;
 
     int counter = 10;
     int[] chosenFruit = new int[4];
@@ -59,17 +61,21 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
+
+
             if(PlayerCombination.contains(Fruits.EMPTY)){
                alertValidateEmpty();
                System.out.println(PlayerCombination);
             }else{
                 appendRecycler(playerImageset);
                 counter--;
+                updateCounter();
                 TextView counterDisplay = findViewById(R.id.triesLeft);
                 counterDisplay.setText("" + counter);
                 CombinationCheck = Game.verification(GameCombination, PlayerCombination);
                 playerImageset.setCheck(CombinationCheck);
             }
+
 
             Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
@@ -85,6 +91,11 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
         TextView mtv = findViewById(R.id.ScoreValue);
         mtv.setText("" + adapter.getItemCount());
+    }
+
+    private void updateCounter() {
+        TextView counterDisplay = findViewById(R.id.triesLeft);
+        counterDisplay.setText("" + counter);
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -152,21 +163,46 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     //Méthode qui se déclenchera au clic sur un item
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
-        switch (item.getItemId()) {
-            case R.id.indiceNumerbe1:
-                LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
-                mHintSeed.setVisibility(LinearLayout.VISIBLE);
-                Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
-                break;
 
-            case R.id.indiceNumerbe2:
-                LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
-                mHintPeel.setVisibility(LinearLayout.VISIBLE);
-                Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
-                break;
+        if (hintdeduction < 3) {
 
+            //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
+            switch (item.getItemId()) {
+                case R.id.indiceSeed:
+                    if (hintUsed == 1) {
+                        Toast.makeText(this, "hint already used", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
+                        mHintSeed.setVisibility(LinearLayout.VISIBLE);
+                        Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
+                        hintdeduction++;
+                        hintUsed = 1;
+
+                        counter -= hintdeduction;
+                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+
+                case R.id.indicePeel:
+                    if (hintUsed == 2) {
+                        Toast.makeText(this, "Hint already used", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
+                        mHintPeel.setVisibility(LinearLayout.VISIBLE);
+                        Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
+                        hintdeduction++;
+                        hintUsed = 2;
+                        counter -= hintdeduction;
+                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
+
+
+                    }
+            }
+        } else {
+            Toast.makeText(this, "You already used alL Hints", Toast.LENGTH_SHORT).show();
         }
+        updateCounter();
 
         return false;
     }
@@ -182,6 +218,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }
+
+
 
 
     private void updateSetOfFruit(int fruit, int id) {
