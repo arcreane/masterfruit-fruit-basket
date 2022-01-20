@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textSize="16dp"
             android:text="Total Score: " />
 
         <TextView
@@ -26,13 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textSize="16dp"
             android:text="0" />
 
         <TextView
-            android:id="@+id/difficultyTextView"
+            android:id="@+id/triesTitle"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="16dp"
             android:text="Tries left: " />
 
         <TextView
@@ -41,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
+            android:textSize="16dp"
             android:text="10" />
 
     </LinearLayout>
@@ -48,63 +52,70 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/player_guess_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="510dp"
         android:layout_below="@id/ScoreLayout" />
 
-    <TableLayout
-        android:id="@+id/board_play_layout"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@id/player_guess_list"
-        android:background="@color/light_grey"
-        android:orientation="horizontal"
-        android:stretchColumns="*"
-        >
-
-        <TableRow
-            android:id="@+id/board_play"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/Player_Fruit1"
-                style="@style/ImageView"
-                app:srcCompat="@drawable/kiwi"/>
-
-            <ImageView
-                android:id="@+id/Player_Fruit2"
-                style="@style/ImageView"
-                app:srcCompat="@drawable/banana"/>
-
-            <ImageView
-                android:id="@+id/Player_Fruit3"
-                style="@style/ImageView"
-                app:srcCompat="@drawable/grape" />
-
-            <ImageView
-                android:id="@+id/Player_Fruit4"
-                style="@style/ImageView"
-                app:srcCompat="@drawable/strawberry" />
-
-        </TableRow>
-
-    </TableLayout>
-
     <LinearLayout
-        android:id="@+id/guess_validate_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/board_play_layout">
+        android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/guess_validate_btn"
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:id="@+id/board_play_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/player_guess_list"
+            android:background="@color/light_grey"
+            android:orientation="horizontal"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/board_play"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/Player_Fruit1"
+                    style="@style/ImageView"
+                    app:srcCompat="@drawable/empty" />
+
+                <ImageView
+                    android:id="@+id/Player_Fruit2"
+                    style="@style/ImageView"
+                    app:srcCompat="@drawable/empty" />
+
+                <ImageView
+                    android:id="@+id/Player_Fruit3"
+                    style="@style/ImageView"
+                    app:srcCompat="@drawable/empty" />
+
+                <ImageView
+                    android:id="@+id/Player_Fruit4"
+                    style="@style/ImageView"
+                    app:srcCompat="@drawable/empty" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/guess_validate_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Validate"/>
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <Button
+                android:id="@+id/guess_validate_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Validate" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
