@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         m_startButton.setOnClickListener(view -> {
-            Intent gameplay = new Intent(MainActivity.this, GamePlay.class);
+            Intent gameplay = new Intent(MainActivity.this, GameBoard.class);
             startActivity(gameplay);
         });
 

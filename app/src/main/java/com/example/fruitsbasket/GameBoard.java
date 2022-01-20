@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -23,11 +21,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
     MyRecyclerViewAdapter adapter;
     ImageSet playerImageset;
@@ -56,9 +51,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         registerForContextMenu(Fruit_Four);
         playerImageset = new ImageSet();
 
-        GameCombination = Functions.generateFruitCombination();
+        GameCombination = Game.generateFruitCombination();
         for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
-        Toast.makeText(this, ""+ Arrays.toString(Functions.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+ Arrays.toString(Game.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
 
 
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
@@ -72,7 +67,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                 counter--;
                 TextView counterDisplay = findViewById(R.id.triesLeft);
                 counterDisplay.setText("" + counter);
-                CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
+                CombinationCheck = Game.verification(GameCombination, PlayerCombination);
                 playerImageset.setCheck(CombinationCheck);
             }
 
@@ -180,7 +175,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
      * Shows a Dialog box when Player validates his board with empty spaces
      */
     private void alertValidateEmpty(){
-        AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(GameBoard.this).create();
         alertDialog.setTitle("Stop!");
         alertDialog.setMessage("You can't submit whit an empty space!");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -201,6 +196,5 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit), id);
         }
     }
-
 
 }

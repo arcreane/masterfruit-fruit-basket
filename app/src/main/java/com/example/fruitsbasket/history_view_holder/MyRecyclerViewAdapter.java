@@ -1,23 +1,18 @@
 package com.example.fruitsbasket.history_view_holder;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fruitsbasket.GamePlay;
 import com.example.fruitsbasket.ImageSet;
 import com.example.fruitsbasket.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 

@@ -3,7 +3,7 @@ package com.example.fruitsbasket;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Functions {
+public class Game {
     ArrayList<Fruits> listToFind;
     public static int difficulty = 4;
 
