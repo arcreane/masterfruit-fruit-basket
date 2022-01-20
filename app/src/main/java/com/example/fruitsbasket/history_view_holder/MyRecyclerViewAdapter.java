@@ -49,10 +49,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.itemViewPiece2.setImageBitmap(imageViewPiece.getImage2());
         holder.itemViewPiece3.setImageBitmap(imageViewPiece.getImage3());
         holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
-        holder.itemHint1.setText(GamePlay.SolutionHints[0]);
-        holder.itemHint1.setText(GamePlay.SolutionHints[1]);
-        holder.itemHint1.setText(GamePlay.SolutionHints[2]);
-        holder.itemHint1.setText(GamePlay.SolutionHints[3]);
+        holder.itemHint1.setText(GamePlay.CombinationCheck[0]);
+        holder.itemHint1.setText(GamePlay.CombinationCheck[1]);
+        holder.itemHint1.setText(GamePlay.CombinationCheck[2]);
+        holder.itemHint1.setText(GamePlay.CombinationCheck[3]);
     }
 
     public void addImageSet(ViewHolder holder, ImageSet newSet, int position){

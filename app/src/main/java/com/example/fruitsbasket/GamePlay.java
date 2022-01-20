@@ -27,9 +27,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     ImageView focus;
     View viewClicked;
     ArrayList<ImageSet> setOfFruit = new ArrayList<>();
-    ArrayList<Fruits> playerCombination = new ArrayList<>();
-    ArrayList<Fruits> playerTarget = new ArrayList<>();
-    public static String[] SolutionHints = new String[4];
+    ArrayList<Fruits> GameCombination = new ArrayList<>();
+    ArrayList<Fruits> PlayerCombination = new ArrayList<>();
+    public static String[] CombinationCheck = new String[4];
 
     int counter = 10;
     int[] chosenFruit = new int[4];
@@ -50,9 +50,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         registerForContextMenu(Fruit_Four);
         playerImageset = new ImageSet();
 
-        playerCombination = Functions.generateFruitCombination();
-        for (int i = 0; i < 4; i++) {playerTarget.add(Fruits.EMPTY);}
-        Toast.makeText(this, ""+ Arrays.toString(Functions.verification(playerCombination,playerTarget)),Toast.LENGTH_SHORT).show();
+        GameCombination = Functions.generateFruitCombination();
+        for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
+        Toast.makeText(this, ""+ Arrays.toString(Functions.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
 
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
         Button validate = findViewById(R.id.guess_validate_btn);
@@ -61,8 +61,8 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             counter--;
             TextView counterDisplay = findViewById(R.id.triesLeft);
             counterDisplay.setText("" + counter);
-            SolutionHints = Functions.verification(playerCombination, playerTarget);
-            Toast.makeText(this, ""+ Arrays.toString(SolutionHints),Toast.LENGTH_SHORT).show();
+            CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
+            Toast.makeText(this, ""+ Arrays.toString(CombinationCheck),Toast.LENGTH_SHORT).show();
         });
 
         // Test de la fonction Verification de la combinaison player
@@ -73,11 +73,11 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 //        combination.add(Fruits.GRAPE);
 //
 //
-//        playerCombination.add(Fruits.BANANA);
-//        playerCombination.add(Fruits.PLUM);
-//        playerCombination.add(Fruits.STRAWBERRY);
-//        playerCombination.add(Fruits.GRAPE);
-//        String[] verif= Functions.verification(playerCombination, playerTarget);
+//        GameCombination.add(Fruits.BANANA);
+//        GameCombination.add(Fruits.PLUM);
+//        GameCombination.add(Fruits.STRAWBERRY);
+//        GameCombination.add(Fruits.GRAPE);
+//        String[] verif= Functions.verification(GameCombination, PlayerCombination);
 //        Toast.makeText(this, ""+ Arrays.toString(verif),
 //                Toast.LENGTH_SHORT).show();
 
@@ -150,40 +150,40 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     public boolean onContextItemSelected(MenuItem item){
         int id = 0;
         switch (viewClicked.getId()){
-            case R.id.Player_Fruit1: id = 1; break;
-            case R.id.Player_Fruit2: id = 2; break;
-            case R.id.Player_Fruit3: id = 3; break;
-            case R.id.Player_Fruit4: id = 4; break;
+            case R.id.Player_Fruit1: id = 0; break;
+            case R.id.Player_Fruit2: id = 1; break;
+            case R.id.Player_Fruit3: id = 2; break;
+            case R.id.Player_Fruit4: id = 3; break;
         }
         ContextMenu.ContextMenuInfo toto = item.getMenuInfo();
 
         switch (item.getItemId()){
             case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
-                playerTarget.set(id-1, Fruits.STRAWBERRY);
+                PlayerCombination.set(id, Fruits.STRAWBERRY);
                 return true;
             case (R.id.BananaIm): updateSetOfFruit(R.drawable.banana, id);
-                playerTarget.set(id-1, Fruits.BANANA);
+                PlayerCombination.set(id, Fruits.BANANA);
                 return true;
             case (R.id.KiwiIm): updateSetOfFruit(R.drawable.kiwi, id);
-                playerTarget.set(id-1, Fruits.KIWI);
+                PlayerCombination.set(id, Fruits.KIWI);
                 return true;
             case (R.id.OrangeIm): updateSetOfFruit(R.drawable.orange, id);
-                playerTarget.set(id-1, Fruits.ORANGE);
+                PlayerCombination.set(id, Fruits.ORANGE);
                 return true;
             case (R.id.RaspberryIm): updateSetOfFruit(R.drawable.raspberry, id);
-                playerTarget.set(id-1, Fruits.RASPBERRY);
+                PlayerCombination.set(id, Fruits.RASPBERRY);
                 return true;
             case (R.id.LemonIm): updateSetOfFruit(R.drawable.lemon, id);
-                playerTarget.set(id-1, Fruits.LEMON);
+                PlayerCombination.set(id, Fruits.LEMON);
                 return true;
             case (R.id.PlumIm): updateSetOfFruit(R.drawable.plum, id);
-                playerTarget.set(id-1, Fruits.PLUM);
+                PlayerCombination.set(id, Fruits.PLUM);
                 return true;
             case (R.id.GrapeIm): updateSetOfFruit(R.drawable.grape, id);
-                playerTarget.set(id-1, Fruits.GRAPE);
+                PlayerCombination.set(id, Fruits.GRAPE);
                 return true;
             case (R.id.EmptyIm): updateSetOfFruit(R.drawable.empty, id);
-                playerTarget.set(id-1, Fruits.EMPTY);
+                PlayerCombination.set(id, Fruits.EMPTY);
                 return true;
         }
         return false;
@@ -196,12 +196,10 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         }
         if(chosen) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
         else {
-            chosenFruit[id - 1] = fruit;
+            chosenFruit[id] = fruit;
             focus.setImageResource(fruit);
             if (id != 0)
                 playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit), id);
         }
     }
-
-
 }
