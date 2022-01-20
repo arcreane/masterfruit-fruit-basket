@@ -55,6 +55,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
         Toast.makeText(this, ""+ Arrays.toString(Functions.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
 
+
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
@@ -66,21 +67,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             Toast.makeText(this, ""+ Arrays.toString(CombinationCheck),Toast.LENGTH_SHORT).show();
         });
 
-        // Test de la fonction Verification de la combinaison player
-//        ArrayList<Fruits> combination = new ArrayList<Fruits>();
-//        combination.add(Fruits.BANANA);
-//        combination.add(Fruits.KIWI);
-//        combination.add(Fruits.PLUM);
-//        combination.add(Fruits.GRAPE);
-//
-//
-//        GameCombination.add(Fruits.BANANA);
-//        GameCombination.add(Fruits.PLUM);
-//        GameCombination.add(Fruits.STRAWBERRY);
-//        GameCombination.add(Fruits.GRAPE);
-//        String[] verif= Functions.verification(GameCombination, PlayerCombination);
-//        Toast.makeText(this, ""+ Arrays.toString(verif),
-//                Toast.LENGTH_SHORT).show();
 
         // data to populate the RecyclerView with
 //        ImageSet imageset1 = new ImageSet();
@@ -131,8 +117,8 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
 
 
-        ArrayList<StringBuilder> hints = Functions.generateHints(m_fruitsCombine);
-        Toast.makeText(this, hints.get(0)+"\n"+hints.get(1), Toast.LENGTH_SHORT).show();
+        ArrayList<String[]> hints = Functions.generateHints(m_fruitsCombine);
+        Toast.makeText(this, hints.get(0).toString()+"\n"+hints.get(1).toString(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -159,6 +145,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         ContextMenu.ContextMenuInfo toto = item.getMenuInfo();
 
         switch (item.getItemId()){
+
             case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
                 PlayerCombination.set(id, Fruits.STRAWBERRY);
                 return true;

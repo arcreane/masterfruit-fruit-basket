@@ -45,14 +45,14 @@ public class Functions {
      * @param fruitCombination
      * @return An Array of 2 StringBuilders
      */
-    public static ArrayList<StringBuilder> generateHints(ArrayList<Fruits> fruitCombination){
-        ArrayList<StringBuilder> hint = new ArrayList<>();
-        StringBuilder hintPeel = new StringBuilder();
-        StringBuilder hintSeed = new StringBuilder();
+    public static ArrayList<String[]> generateHints(ArrayList<Fruits> fruitCombination){
+        ArrayList<String[]> hint = new ArrayList<>();
+        String[] hintPeel = new String[4];
+        String[] hintSeed = new String[4];
         for (int i = 0; i < fruitCombination.size(); i++) {
             Fruits fruit = fruitCombination.get(i);
-            hintPeel.append(fruit.isM_bPeelable()).append(" ");
-            hintSeed.append(fruit.isM_bSeed()).append(" ");
+            hintPeel[i] = fruit.isM_bPeelable();
+            hintSeed[i] = fruit.isM_bSeed();
         }
         hint.add(hintPeel);
         hint.add(hintSeed);
