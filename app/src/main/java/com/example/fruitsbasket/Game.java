@@ -4,8 +4,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
-    ArrayList<Fruits> listToFind;
-    public static int difficulty = 4;
+    ArrayList<ImageSet> setOfFruit;
+    ArrayList<Fruits> GameCombination;
+    ArrayList<Fruits> PlayerCombination;
+    String[] CombinationCheck = new String[4];
+
+    int hintdeduction = 1;
+    int hintUsed = 0;
+
+    static int difficulty = 4;
+    int counter = 10;
+
+
+
+
 
     /**
      * Function which returns an ArrayList of 4 different fruits

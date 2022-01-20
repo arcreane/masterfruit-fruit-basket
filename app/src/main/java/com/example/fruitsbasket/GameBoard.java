@@ -227,7 +227,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         for (int i = 0; i < 4; i++) {
             if(chosenFruit[i] == fruit) {chosen = true;}
         }
-        if(chosen && fruit != Fruits.EMPTY.getFruitIcon()) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
+        if(chosen && fruit != Fruits.EMPTY.getFruitIcon())
+            Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
         else {
             chosenFruit[id] = fruit;
             focus.setImageResource(fruit);
