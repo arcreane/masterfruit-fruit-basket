@@ -33,7 +33,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     ArrayList<ImageSet> setOfFruit = new ArrayList<>();
     ArrayList<Fruits> GameCombination = new ArrayList<>();
     ArrayList<Fruits> PlayerCombination = new ArrayList<>();
-    public static String[] CombinationCheck = new String[4];
+    String[] CombinationCheck = new String[4];
 
     int counter = 10;
     int[] chosenFruit = new int[4];
@@ -169,7 +169,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return false;
     }
 
-
     //create hintMenu.
     //Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du téléphone
     @Override
@@ -191,11 +190,13 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                 LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
                 mHintSeed.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.indiceNumerbe2:
                 LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
                 mHintPeel.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
+                break;
 
         }
 

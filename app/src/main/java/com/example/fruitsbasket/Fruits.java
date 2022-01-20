@@ -6,24 +6,26 @@ import java.util.HashMap;
 
 public enum Fruits
 {
-    STRAWBERRY(false, false, R.drawable.strawberry ),
-    BANANA(false, true, R.drawable.banana ),
-    RASPBERRY(false, false, R.drawable.raspberry ),
-    KIWI(false, true, R.drawable.kiwi ),
-    ORANGE(true, true, R.drawable.orange ),
-    PLUM(true, false, R.drawable.plum ),
-    GRAPE(true, false, R.drawable.grape ),
-    LEMON(true, true, R.drawable.lemon ),
-    EMPTY(false, false, R.drawable.empty );
+    STRAWBERRY(false, false, R.drawable.strawberry, R.id.StrawberryIm ),
+    BANANA(false, true, R.drawable.banana,  R.id.BananaIm),
+    RASPBERRY(false, false, R.drawable.raspberry, R.id.RaspberryIm ),
+    KIWI(false, true, R.drawable.kiwi, R.id.KiwiIm ),
+    ORANGE(true, true, R.drawable.orange, R.id.OrangeIm ),
+    PLUM(true, false, R.drawable.plum, R.id.PlumIm ),
+    GRAPE(true, false, R.drawable.grape, R.id.GrapeIm ),
+    LEMON(true, true, R.drawable.lemon,  R.id.LemonIm),
+    EMPTY(false, false, R.drawable.empty, R.id.EmptyIm );
 
     public boolean m_bSeed;
     public boolean m_bPeelable;
-    public int m_sFruitIcon;
+    public int m_iFruitIcon;
+    public int m_iMenuiId;
 
-    Fruits(boolean m_bSeed, boolean m_bPeelable, int m_sFruitIcon) {
-        this.m_bSeed = m_bSeed;
-        this.m_bPeelable = m_bPeelable;
-        this.m_sFruitIcon = m_sFruitIcon;
+    Fruits(boolean p_bSeed, boolean p_bPeelable, int p_sFruitIcon, int p_iMenuiId) {
+        this.m_bSeed = p_bSeed;
+        this.m_bPeelable = p_bPeelable;
+        this.m_iFruitIcon = p_sFruitIcon;
+        this.m_iMenuiId = p_iMenuiId;
     }
 
     public String isM_bSeed() {
@@ -38,7 +40,11 @@ public enum Fruits
         }else return "false";
     }
 
-    public int getM_sFruitIcon() {
-        return m_sFruitIcon;
+    public int getM_iFruitIcon() {
+        return m_iFruitIcon;
+    }
+
+    public int getM_iMenuiId() {
+        return m_iMenuiId;
     }
 }
