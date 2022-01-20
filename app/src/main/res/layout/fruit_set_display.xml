@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/text_frame"
                 android:gravity="center"
-                android:text="0" />
+                android:text="O" />
         </TableRow>
 
         <TableRow

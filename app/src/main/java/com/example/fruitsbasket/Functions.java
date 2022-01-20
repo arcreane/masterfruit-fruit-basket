@@ -22,7 +22,10 @@ public class Functions {
                     count++;
                 }
             }
-            return combination;
+        for (int i = 0; i < 4; i++) {
+            System.out.println(i +": " + combination.get(i));
+        }
+        return combination;
         }
 
         /**
@@ -32,7 +35,7 @@ public class Functions {
          */
         public static Fruits generateRandomFruit () {
             Fruits[] values = Fruits.values();
-            int length = values.length;
+            int length = values.length -1;
             int randIndex = new Random().nextInt(length);
             return values[randIndex];
         }
@@ -42,14 +45,14 @@ public class Functions {
      * @param fruitCombination
      * @return An Array of 2 StringBuilders
      */
-    public static ArrayList<StringBuilder> generateHints(ArrayList<Fruits> fruitCombination){
-        ArrayList<StringBuilder> hint = new ArrayList<>();
-        StringBuilder hintPeel = new StringBuilder();
-        StringBuilder hintSeed = new StringBuilder();
+    public static ArrayList<String[]> generateHints(ArrayList<Fruits> fruitCombination){
+        ArrayList<String[]> hint = new ArrayList<>();
+        String[] hintPeel = new String[4];
+        String[] hintSeed = new String[4];
         for (int i = 0; i < fruitCombination.size(); i++) {
             Fruits fruit = fruitCombination.get(i);
-            hintPeel.append(fruit.isM_bPeelable()).append(" ");
-            hintSeed.append(fruit.isM_bSeed()).append(" ");
+            hintPeel[i] = fruit.isM_bPeelable();
+            hintSeed[i] = fruit.isM_bSeed();
         }
         hint.add(hintPeel);
         hint.add(hintSeed);
@@ -57,35 +60,35 @@ public class Functions {
     }
 
 
-    public static String[] verification
-    (ArrayList < Fruits > combination, ArrayList < Fruits > proposal){
-
+    public static String[] verification(ArrayList < Fruits > combination, ArrayList < Fruits > proposal) {
         String[] evaluation = new String[4];
         int index = 0;
+
+        for (int i = 0; i < 4; i++) {System.out.println(i +": " + proposal.get(i) + " / " + combination.get(i));}
 
         for (int i = 0; i < 4; i++) {
             Fruits playerFruit = proposal.get(i);
             for (int j = 0; j < 4; j++) {
                 Fruits combinationFruits = combination.get(j);
-                if (combinationFruits == playerFruit) {
+                if (playerFruit.equals(Fruits.EMPTY)) {
+                    evaluation[index] = ".";
+                    break;
+                } else if (combinationFruits == playerFruit) {
                     if (i == j) {
                         evaluation[index] = "V";
                         break;
-
                     } else {
                         evaluation[index] = "X";
                         break;
                     }
-
                 } else {
                     evaluation[index] = "O";
-
                 }
             }
             index++;
         }
         return evaluation;
     }
-
-
 }
+
+
