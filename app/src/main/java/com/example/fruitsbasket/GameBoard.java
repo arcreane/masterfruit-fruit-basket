@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 
 import android.os.Bundle;
@@ -58,9 +60,12 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         Toast.makeText(this, ""+ Arrays.toString(Game.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
 
 
-        // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
+        /** Button VALIDATE
+         * Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
+         */
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
+<<<<<<< HEAD:app/src/main/java/com/example/fruitsbasket/GameBoard.java
 
 
             if(PlayerCombination.contains(Fruits.EMPTY)){
@@ -82,6 +87,19 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
 
 
+=======
+            appendRecycler(playerImageset);
+            counter--;
+            TextView counterDisplay = findViewById(R.id.triesLeft);
+            counterDisplay.setText("" + counter);
+            CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
+            playerImageset.setCheck(CombinationCheck);
+            //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
+            checkGameStatus();
+        });
+
+
+>>>>>>> endofgame:app/src/main/java/com/example/fruitsbasket/GamePlay.java
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.player_guess_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -93,9 +111,38 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         mtv.setText("" + adapter.getItemCount());
     }
 
+<<<<<<< HEAD:app/src/main/java/com/example/fruitsbasket/GameBoard.java
     private void updateCounter() {
         TextView counterDisplay = findViewById(R.id.triesLeft);
         counterDisplay.setText("" + counter);
+=======
+    private void checkGameStatus() {
+        int Vcount = 0;
+        for (int i = 0; i <4; i++) {
+            if(CombinationCheck[i].equals("V")) Vcount ++;
+        }
+        if(Vcount == 4){
+            System.out.println("You won");
+            ShowAlertBox("Congratulations", "You won this Game. Do you want to add your Name to the Hall of Fame ?");
+        }else if(counter == 0){
+            System.out.println("end of game");
+            ShowAlertBox("So Bad ...", "You You loose try again !");
+        }
+    }
+
+    private void ShowAlertBox(String title, String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+>>>>>>> endofgame:app/src/main/java/com/example/fruitsbasket/GamePlay.java
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -159,6 +206,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         return true;
 
     }
+
 
     //Méthode qui se déclenchera au clic sur un item
     @Override
