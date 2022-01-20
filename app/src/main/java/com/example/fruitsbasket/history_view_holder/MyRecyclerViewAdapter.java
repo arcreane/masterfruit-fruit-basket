@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import com.example.fruitsbasket.ImageSet;
 import com.example.fruitsbasket.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
@@ -44,21 +46,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageSet imageViewPiece = pieces.get(position);
         ImageView imageview = holder.itemViewPiece1;
         imageview.setTag(position);
-//        imageview.setImageBitmap(imageViewPiece.getImage1());
+
         holder.itemViewPiece1.setImageBitmap(imageViewPiece.getImage1());
         holder.itemViewPiece2.setImageBitmap(imageViewPiece.getImage2());
         holder.itemViewPiece3.setImageBitmap(imageViewPiece.getImage3());
         holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
-        holder.itemHint1.setText(GamePlay.CombinationCheck[0]);
-        holder.itemHint1.setText(GamePlay.CombinationCheck[1]);
-        holder.itemHint1.setText(GamePlay.CombinationCheck[2]);
-        holder.itemHint1.setText(GamePlay.CombinationCheck[3]);
+        holder.itemHint1.setText(imageViewPiece.getCheck()[0]);
+        holder.itemHint1.setText(imageViewPiece.getCheck()[1]);
+        holder.itemHint1.setText(imageViewPiece.getCheck()[2]);
+        holder.itemHint1.setText(imageViewPiece.getCheck()[3]);
     }
 
-    public void addImageSet(ViewHolder holder, ImageSet newSet, int position){
-        this.pieces.add(newSet);
-//        holder.();
-    }
+//    public void addImageSet(ViewHolder holder, ImageSet newSet, int position){
+//        this.pieces.add(newSet);
+//    }
 
     // total number of rows
     @Override

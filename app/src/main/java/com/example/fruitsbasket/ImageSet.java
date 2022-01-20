@@ -13,8 +13,8 @@ public class ImageSet {
         return check;
     }
 
-    public void setCheck(String[] check1) {
-        this.check = check1;
+    public void setCheck(String[] check) {
+        this.check = check;
     }
 
     public Bitmap getImage1() {
@@ -23,19 +23,19 @@ public class ImageSet {
 
     public void setImage(Bitmap image, int index) {
         switch (index){
-            case 1: this.image1 = image;
-            case 2: this.image2 = image;
-            case 3: this.image3 = image;
-            case 4: this.image4 = image;
+            case 0: this.image1 = image;break;
+            case 1: this.image2 = image;break;
+            case 2: this.image3 = image;break;
+            case 3: this.image4 = image;
         }
     }
 
     public Bitmap getImage(int index) {
         switch (index){
-            case 1: return this.image1;
-            case 2: return this.image2;
-            case 3: return this.image3;
-            case 4: return this.image4;
+            case 0: return this.image1;
+            case 1: return this.image2;
+            case 2: return this.image3;
+            case 3: return this.image4;
         }
         return null;
     }
