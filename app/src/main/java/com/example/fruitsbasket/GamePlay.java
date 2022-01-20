@@ -21,6 +21,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -30,10 +33,23 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     ArrayList<ImageSet> setOfFruit = new ArrayList<>();
     ArrayList<Fruits> GameCombination = new ArrayList<>();
     ArrayList<Fruits> PlayerCombination = new ArrayList<>();
-    String[] CombinationCheck = new String[4];
+    public static String[] CombinationCheck = new String[4];
 
     int counter = 10;
     int[] chosenFruit = new int[4];
+
+    HashMap<Integer, Integer> fruitList = new HashMap<Integer, Integer>()
+    {{
+        put(R.id.StrawberryIm, R.drawable.strawberry);
+        put(R.id.RaspberryIm, R.drawable.raspberry);
+        put(R.id.KiwiIm, R.drawable.kiwi);
+        put(R.id.BananaIm, R.drawable.banana);
+        put(R.id.OrangeIm, R.drawable.orange);
+        put(R.id.GrapeIm, R.drawable.grape);
+        put(R.id.LemonIm, R.drawable.lemon);
+        put(R.id.PlumIm, R.drawable.plum);
+        put(R.id.EmptyIm, R.drawable.empty);
+    }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,16 +130,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        //ArrayList of enum generated automatically
-        ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
-        Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
-
-
-        ArrayList<String[]> hints = Functions.generateHints(m_fruitsCombine);
-        Toast.makeText(this, hints.get(0).toString()+"\n"+hints.get(1).toString(), Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -145,37 +151,20 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             case R.id.Player_Fruit3: id = 2; break;
             case R.id.Player_Fruit4: id = 3; break;
         }
-        ContextMenu.ContextMenuInfo toto = item.getMenuInfo();
 
-        switch (item.getItemId()){
-
-            case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
-                PlayerCombination.set(id, Fruits.STRAWBERRY);
-                return true;
-            case (R.id.BananaIm): updateSetOfFruit(R.drawable.banana, id);
-                PlayerCombination.set(id, Fruits.BANANA);
-                return true;
-            case (R.id.KiwiIm): updateSetOfFruit(R.drawable.kiwi, id);
-                PlayerCombination.set(id, Fruits.KIWI);
-                return true;
-            case (R.id.OrangeIm): updateSetOfFruit(R.drawable.orange, id);
-                PlayerCombination.set(id, Fruits.ORANGE);
-                return true;
-            case (R.id.RaspberryIm): updateSetOfFruit(R.drawable.raspberry, id);
-                PlayerCombination.set(id, Fruits.RASPBERRY);
-                return true;
-            case (R.id.LemonIm): updateSetOfFruit(R.drawable.lemon, id);
-                PlayerCombination.set(id, Fruits.LEMON);
-                return true;
-            case (R.id.PlumIm): updateSetOfFruit(R.drawable.plum, id);
-                PlayerCombination.set(id, Fruits.PLUM);
-                return true;
-            case (R.id.GrapeIm): updateSetOfFruit(R.drawable.grape, id);
-                PlayerCombination.set(id, Fruits.GRAPE);
-                return true;
-            case (R.id.EmptyIm): updateSetOfFruit(R.drawable.empty, id);
-                PlayerCombination.set(id, Fruits.EMPTY);
-                return true;
+        //Which item has been selected ?
+        int selectedFruit = item.getItemId();
+        //
+        if(fruitList.containsKey(selectedFruit)){
+            updateSetOfFruit(fruitList.get(selectedFruit), id);
+            Fruits fruit ;
+            for(Fruits f : Fruits.values()) {
+                if(f.getM_sFruitIcon() == selectedFruit) {
+                    fruit = f;
+                    GameCombination.add(id, fruit);
+                }
+            }
+            return true;
         }
         return false;
     }
@@ -208,14 +197,10 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                 mHintPeel.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
 
-
         }
 
         return false;
     }
-
-
-
 
 
 
