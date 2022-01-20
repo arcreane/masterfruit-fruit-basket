@@ -19,6 +19,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -33,6 +36,19 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
     int counter = 10;
     int[] chosenFruit = new int[4];
+
+    HashMap<Integer, Integer> fruitList = new HashMap<Integer, Integer>()
+    {{
+        put(R.id.StrawberryIm, R.drawable.strawberry);
+        put(R.id.RaspberryIm, R.drawable.raspberry);
+        put(R.id.KiwiIm, R.drawable.kiwi);
+        put(R.id.BananaIm, R.drawable.banana);
+        put(R.id.OrangeIm, R.drawable.orange);
+        put(R.id.GrapeIm, R.drawable.grape);
+        put(R.id.LemonIm, R.drawable.lemon);
+        put(R.id.PlumIm, R.drawable.plum);
+        put(R.id.EmptyIm, R.drawable.empty);
+    }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,16 +130,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        //ArrayList of enum generated automatically
-        ArrayList<Fruits> m_fruitsCombine = Functions.generateFruitCombination();
-        Toast.makeText(this, ""+m_fruitsCombine.toString(), Toast.LENGTH_SHORT).show();
-
-
-        ArrayList<String[]> hints = Functions.generateHints(m_fruitsCombine);
-        Toast.makeText(this, hints.get(0).toString()+"\n"+hints.get(1).toString(), Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -146,37 +152,19 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
             case R.id.Player_Fruit3: id = 3; break;
             case R.id.Player_Fruit4: id = 4; break;
         }
-        ContextMenu.ContextMenuInfo toto = item.getMenuInfo();
-
-        switch (item.getItemId()){
-
-            case (R.id.StrawberryIm): updateSetOfFruit(R.drawable.strawberry, id);
-                playerTarget.set(id-1, Fruits.STRAWBERRY);
-                return true;
-            case (R.id.BananaIm): updateSetOfFruit(R.drawable.banana, id);
-                playerTarget.set(id-1, Fruits.BANANA);
-                return true;
-            case (R.id.KiwiIm): updateSetOfFruit(R.drawable.kiwi, id);
-                playerTarget.set(id-1, Fruits.KIWI);
-                return true;
-            case (R.id.OrangeIm): updateSetOfFruit(R.drawable.orange, id);
-                playerTarget.set(id-1, Fruits.ORANGE);
-                return true;
-            case (R.id.RaspberryIm): updateSetOfFruit(R.drawable.raspberry, id);
-                playerTarget.set(id-1, Fruits.RASPBERRY);
-                return true;
-            case (R.id.LemonIm): updateSetOfFruit(R.drawable.lemon, id);
-                playerTarget.set(id-1, Fruits.LEMON);
-                return true;
-            case (R.id.PlumIm): updateSetOfFruit(R.drawable.plum, id);
-                playerTarget.set(id-1, Fruits.PLUM);
-                return true;
-            case (R.id.GrapeIm): updateSetOfFruit(R.drawable.grape, id);
-                playerTarget.set(id-1, Fruits.GRAPE);
-                return true;
-            case (R.id.EmptyIm): updateSetOfFruit(R.drawable.empty, id);
-                playerTarget.set(id-1, Fruits.EMPTY);
-                return true;
+        //Which item has been selected ?
+        int selectedFruit = item.getItemId();
+        //
+        if(fruitList.containsKey(selectedFruit)){
+            updateSetOfFruit(fruitList.get(selectedFruit), id);
+            Fruits fruit ;
+            for(Fruits f : Fruits.values()) {
+                if(f.getM_sFruitIcon() == selectedFruit) {
+                    fruit = f;
+                    playerCombination.add(id, fruit);
+                }
+            }
+            return true;
         }
         return false;
     }

@@ -43,7 +43,7 @@ public class Functions {
     /**
      * Generates the two hints "Peelable" at index 0 and "with Seeds" at index 1
      * @param fruitCombination
-     * @return An Array of 2 StringBuilders
+     * @return An ArrayList of 2 String[]
      */
     public static ArrayList<String[]> generateHints(ArrayList<Fruits> fruitCombination){
         ArrayList<String[]> hint = new ArrayList<>();
