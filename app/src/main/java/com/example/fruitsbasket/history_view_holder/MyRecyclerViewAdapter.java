@@ -55,6 +55,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.itemHint1.setText(imageViewPiece.getCheck()[1]);
         holder.itemHint1.setText(imageViewPiece.getCheck()[2]);
         holder.itemHint1.setText(imageViewPiece.getCheck()[3]);
+        System.out.println("Check: " + Arrays.toString(imageViewPiece.getCheck()));
     }
 
 //    public void addImageSet(ViewHolder holder, ImageSet newSet, int position){
