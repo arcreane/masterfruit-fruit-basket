@@ -7,7 +7,15 @@ public class ImageSet {
     private Bitmap image2;
     private Bitmap image3;
     private Bitmap image4;
-    private String[] check1;
+    private String[] check;
+
+    public String[] getCheck() {
+        return check;
+    }
+
+    public void setCheck(String[] check1) {
+        this.check = check1;
+    }
 
     public Bitmap getImage1() {
         return image1;
