@@ -177,7 +177,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     }
 
     /**
-     * Show a Dialog box when Player validates his board with empty spaces
+     * Shows a Dialog box when Player validates his board with empty spaces
      */
     private void alertValidateEmpty(){
         AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
@@ -194,7 +194,7 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         for (int i = 0; i < 4; i++) {
             if(chosenFruit[i] == fruit) {chosen = true;}
         }
-        if(chosen) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
+        if(chosen && fruit != Fruits.EMPTY.getFruitIcon()) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
         else {
             chosenFruit[id] = fruit;
             focus.setImageResource(fruit);
