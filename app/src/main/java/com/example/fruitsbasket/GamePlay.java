@@ -157,11 +157,9 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         //
         if(fruitList.containsKey(selectedFruit)){
             updateSetOfFruit(fruitList.get(selectedFruit), id);
-            Fruits fruit ;
             for(Fruits f : Fruits.values()) {
-                if(f.getM_sFruitIcon() == selectedFruit) {
-                    fruit = f;
-                    GameCombination.add(id, fruit);
+                if(f.getMenuiId() == selectedFruit) {
+                    PlayerCombination.add(id, f);
                 }
             }
             return true;

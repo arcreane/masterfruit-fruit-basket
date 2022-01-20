@@ -40,11 +40,11 @@ public enum Fruits
         }else return "false";
     }
 
-    public int getM_iFruitIcon() {
+    public int getFruitIcon() {
         return m_iFruitIcon;
     }
 
-    public int getM_iMenuiId() {
+    public int getMenuiId() {
         return m_iMenuiId;
     }
 }
