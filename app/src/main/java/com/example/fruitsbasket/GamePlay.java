@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -202,21 +203,53 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return true;
 
     }
+
     //Méthode qui se déclenchera au clic sur un item
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.indiceNumerbe1:
+                LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
+                mHintSeed.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
 
-                return true;
             case R.id.indiceNumerbe2:
+                LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
+                mHintPeel.setVisibility(LinearLayout.VISIBLE);
                 Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
-                return true;
+
+
         }
+
         return false;
     }
+
+    void chooseHint (int indice){
+        String indiceOuNon="";
+        if(indice==1){
+            if(!hint1){
+                tries-=2;
+                System.out.println("You have chosen to have one clue against two attempts you have"+tries+"tries");
+            } else {
+                System.out.println("Hint already given");
+            }
+        }else if (indice==2) {
+            if(!hint2){
+                tries-=3;
+                System.out.println("You have chosen to have one clue against two attempts you have"+tries+"tries");
+            } else {
+                System.out.println("Hint already given");
+            }
+        }else{
+            System.out.println("Indice value not manage");
+        }
+    }
+    int tries;
+    boolean hint1;
+    boolean hint2;
+
+
 
 
 
@@ -233,4 +266,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
                 playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit), id);
         }
     }
+
+
 }
