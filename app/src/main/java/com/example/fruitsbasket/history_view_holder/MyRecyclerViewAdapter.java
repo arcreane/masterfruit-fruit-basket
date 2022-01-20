@@ -52,9 +52,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.itemViewPiece3.setImageBitmap(imageViewPiece.getImage3());
         holder.itemViewPiece4.setImageBitmap(imageViewPiece.getImage4());
         holder.itemHint1.setText(imageViewPiece.getCheck()[0]);
-        holder.itemHint1.setText(imageViewPiece.getCheck()[1]);
-        holder.itemHint1.setText(imageViewPiece.getCheck()[2]);
-        holder.itemHint1.setText(imageViewPiece.getCheck()[3]);
+        holder.itemHint2.setText(imageViewPiece.getCheck()[1]);
+        holder.itemHint3.setText(imageViewPiece.getCheck()[2]);
+        holder.itemHint4.setText(imageViewPiece.getCheck()[3]);
         System.out.println("Check: " + Arrays.toString(imageViewPiece.getCheck()));
     }
 

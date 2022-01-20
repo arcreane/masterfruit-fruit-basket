@@ -180,7 +180,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return false;
     }
 
-
     //create hintMenu.
     //Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du téléphone
     @Override
