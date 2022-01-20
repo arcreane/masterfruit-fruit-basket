@@ -1,9 +1,11 @@
 package com.example.fruitsbasket;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 
 import android.graphics.drawable.Drawable;
@@ -38,19 +40,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
     int counter = 10;
     int[] chosenFruit = new int[4];
 
-    HashMap<Integer, Integer> fruitList = new HashMap<Integer, Integer>()
-    {{
-        put(R.id.StrawberryIm, R.drawable.strawberry);
-        put(R.id.RaspberryIm, R.drawable.raspberry);
-        put(R.id.KiwiIm, R.drawable.kiwi);
-        put(R.id.BananaIm, R.drawable.banana);
-        put(R.id.OrangeIm, R.drawable.orange);
-        put(R.id.GrapeIm, R.drawable.grape);
-        put(R.id.LemonIm, R.drawable.lemon);
-        put(R.id.PlumIm, R.drawable.plum);
-        put(R.id.EmptyIm, R.drawable.empty);
-    }};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,31 +64,21 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
         Button validate = findViewById(R.id.guess_validate_btn);
         validate.setOnClickListener(action-> {
-            appendRecycler(playerImageset);
-            counter--;
-            TextView counterDisplay = findViewById(R.id.triesLeft);
-            counterDisplay.setText("" + counter);
-            CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
-            playerImageset.setCheck(CombinationCheck);
-//            Toast.makeText(this, ""+ Arrays.toString(CombinationCheck),Toast.LENGTH_SHORT).show();
+            if(PlayerCombination.contains(Fruits.EMPTY)){
+               alertValidateEmpty();
+               System.out.println(PlayerCombination);
+            }else{
+                appendRecycler(playerImageset);
+                counter--;
+                TextView counterDisplay = findViewById(R.id.triesLeft);
+                counterDisplay.setText("" + counter);
+                CombinationCheck = Functions.verification(GameCombination, PlayerCombination);
+                playerImageset.setCheck(CombinationCheck);
+            }
+
             Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
-
-
-        // data to populate the RecyclerView with
-//        ImageSet imageset1 = new ImageSet();
-//        imageset1.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.banana));
-//        imageset1.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.grape));
-//        imageset1.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.kiwi));
-//        imageset1.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.lemon));
-//        ImageSet imageset2 = new ImageSet();
-//        imageset2.setImage1(BitmapFactory.decodeResource(getResources(),R.drawable.orange));
-//        imageset2.setImage2(BitmapFactory.decodeResource(getResources(),R.drawable.plum));
-//        imageset2.setImage3(BitmapFactory.decodeResource(getResources(),R.drawable.raspberry));
-//        imageset2.setImage4(BitmapFactory.decodeResource(getResources(),R.drawable.strawberry));
-//        setOfFruit.add(imageset1);
-//        setOfFruit.add(imageset2);
 
 
         // set up the RecyclerView
@@ -139,7 +118,6 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         inflater.inflate(R.menu.player_input_context_menu, menu);
         menu.setHeaderTitle("Select The Fruit");
         focus = (ImageView) vue;
-        Toast.makeText(this, ""+getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,21 +132,18 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
 
         //Which item has been selected ?
         int selectedFruit = item.getItemId();
-        //
-        if(fruitList.containsKey(selectedFruit)){
-            updateSetOfFruit(fruitList.get(selectedFruit), id);
-            for(Fruits f : Fruits.values()) {
-                if(f.getMenuiId() == selectedFruit) {
-                    PlayerCombination.add(id, f);
-                }
+        //Update PlayerCombination and array for recycler view
+        for(Fruits f : Fruits.values()) {
+            if(f.getMenuiId() == selectedFruit) {
+                updateSetOfFruit(f.getFruitIcon(), id);
+                PlayerCombination.set(id, f);
+                return true;
             }
-            return true;
         }
         return false;
     }
 
     //create hintMenu.
-    //Méthode qui se déclenchera lorsque vous appuierez sur le bouton menu du téléphone
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
@@ -201,7 +176,17 @@ public class GamePlay extends AppCompatActivity implements MyRecyclerViewAdapter
         return false;
     }
 
-
+    /**
+     * Show a Dialog box when Player validates his board with empty spaces
+     */
+    private void alertValidateEmpty(){
+        AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
+        alertDialog.setTitle("Stop!");
+        alertDialog.setMessage("You can't submit whit an empty space!");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
+    }
 
 
     private void updateSetOfFruit(int fruit, int id) {
