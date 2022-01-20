@@ -69,6 +69,57 @@
 
 
         <LinearLayout
+            android:id="@+id/hintSeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hintPeel"
+            android:orientation="vertical"
+            android:visibility="gone">
+            >
+
+            <TextView
+                android:id="@+id/firstHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Without Seeds" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/boolean1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/boolean2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/boolean3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/boolean4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/hintPeel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,56 +168,6 @@
             </TableLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/hintSeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/hintPeel"
-            android:visibility="gone">
-            >
-
-            <TextView
-                android:id="@+id/firstHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Without Seeds" />
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/boolean1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/boolean2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/boolean3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/boolean4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-                </TableRow>
-
-            </TableLayout>
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
