@@ -100,6 +100,10 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         Button BtnResign = findViewById(R.id.cancel_btn);
         BtnResign.setOnClickListener(action-> {
             ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
+            if(!currentPlayer.getPlayer_name().equals("")){
+                Toast.makeText(this,"saving " + currentPlayer.getPlayer_name(), Toast.LENGTH_SHORT).show();
+            }else Toast.makeText(this, "See you soon", Toast.LENGTH_SHORT).show();
+            navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
         });
     }
 
@@ -193,19 +197,18 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        getPlayerName();
-
-                    }
+                        if( currentPlayer.getScore() != 0){
+                            getPlayerName();
+                        }
+                        }
                 });
         alertDialog.show();
-
     }
 
     private void TerminateCurrentGame(String title, String message) {
