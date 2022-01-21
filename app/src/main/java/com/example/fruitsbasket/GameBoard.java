@@ -97,8 +97,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
-        Button resign = findViewById(R.id.cancel_btn);
-        validate.setOnClickListener(action-> {
+        Button BtnResign = findViewById(R.id.cancel_btn);
+        BtnResign.setOnClickListener(action-> {
             ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
         });
     }
