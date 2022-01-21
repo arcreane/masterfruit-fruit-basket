@@ -40,7 +40,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_play);
+        setContentView(R.layout.activity_game_board);
         //Find the images where we put the context view menu
         ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
         ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);

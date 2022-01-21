@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameBoard">
+    tools:context=".GameBoard"
+    >
 
     <LinearLayout
         android:id="@+id/ScoreLayout"
@@ -73,8 +74,9 @@
         android:id="@+id/hintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/guess_list_layout"
-        android:orientation="vertical">
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_above="@+id/guessLayout">
 
 
         <LinearLayout
@@ -90,7 +92,8 @@
                 android:id="@+id/firstHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Without Seeds" />
+                android:text="Without Seeds"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -104,25 +107,29 @@
                         android:id="@+id/boolean1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/boolean2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/boolean3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/boolean4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
                 </TableRow>
 
             </TableLayout>
@@ -139,7 +146,8 @@
                 android:id="@+id/secondHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Peelable" />
+                android:text="Peelable"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -153,7 +161,8 @@
                         android:id="@+id/boolean5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/boolean6"
@@ -165,25 +174,28 @@
                         android:id="@+id/boolean7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/boolean8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="12sp" />
                 </TableRow>
 
             </TableLayout>
         </LinearLayout>
-
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/guessLayout">
 
         <TableLayout
             android:id="@+id/board_play_layout"
