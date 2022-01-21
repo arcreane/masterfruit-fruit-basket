@@ -34,6 +34,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     int hintdeduction = 1;
     int hintUsed=0;
 
+    ArrayList<String[]> seedPeelHints;
     int counter = 10;
     int[] chosenFruit = new int[4];
 
@@ -56,6 +57,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         GameCombination = Game.generateFruitCombination();
         for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
         Toast.makeText(this, ""+ Arrays.toString(Game.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
+        seedPeelHints=Game.generateHints(GameCombination);
 
 
         // Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
@@ -96,6 +98,9 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     private void updateCounter() {
         TextView counterDisplay = findViewById(R.id.triesLeft);
         counterDisplay.setText("" + counter);
+
+
+
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -160,49 +165,82 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
     }
 
-    //Méthode qui se déclenchera au clic sur un item
+
+    //action for the click
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (hintdeduction < 3) {
+            //limitid used Hint if you have 2 tries or 3tries
+            if ((hintUsed == 1 && counter <= 2) || (hintUsed == 2 && counter <= 3)) {
+                Toast.makeText(this, "Not enough tries left", Toast.LENGTH_SHORT).show();
 
-            //On regarde quel item a été cliqué grâce à  son id et on déclenche une action
-            switch (item.getItemId()) {
-                case R.id.indiceSeed:
-                    if (hintUsed == 1) {
-                        Toast.makeText(this, "hint already used", Toast.LENGTH_SHORT).show();
-                    } else {
-                        LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
-                        mHintSeed.setVisibility(LinearLayout.VISIBLE);
-                        Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
-                        hintdeduction++;
-                        hintUsed = 1;
-
-                        counter -= hintdeduction;
-                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
-                    }
-                    break;
+            } else {
 
 
-                case R.id.indicePeel:
-                    if (hintUsed == 2) {
-                        Toast.makeText(this, "Hint already used", Toast.LENGTH_SHORT).show();
-                    } else {
-                        LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
-                        mHintPeel.setVisibility(LinearLayout.VISIBLE);
-                        Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
-                        hintdeduction++;
-                        hintUsed = 2;
-                        counter -= hintdeduction;
-                        Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
+
+                //we look who item is cliqued  and activate this action.
+                switch (item.getItemId()) {
+                    case R.id.indiceSeed:
+                        //we look it's a first or second Hint
+                        if (hintUsed == 1) {
+                            Toast.makeText(this, "hint already used", Toast.LENGTH_SHORT).show();
+                        } else {
+                            LinearLayout mHintSeed = (LinearLayout) findViewById(R.id.hintSeed);
+                            mHintSeed.setVisibility(LinearLayout.VISIBLE);
+                            Toast.makeText(this, "You take a first HINT.", Toast.LENGTH_SHORT).show();
+                            //We deduct -2 at tries if you select a first hint. deduct -3 at tries if you
+                            //select a second hint.
+                            hintdeduction++;
+                            hintUsed = 1;
+                            counter -= hintdeduction;
+                            //add hint true or false  for hint seed
+                            TextView tv1=findViewById(R.id.hintSeed1);
+                            tv1.setText(seedPeelHints.get(1)[0]);
+                            TextView tv2=findViewById(R.id.hintSeed2);
+                            tv2.setText(seedPeelHints.get(1)[1]);
+                            TextView tv3=findViewById(R.id.hintSeed3);
+                            tv3.setText(seedPeelHints.get(1)[2]);
+                            TextView tv4=findViewById(R.id.hintSeed4);
+                            tv4.setText(seedPeelHints.get(1)[3]);
+                            Toast.makeText(this, "You loose " + hintdeduction + " tries you have : " + counter, Toast.LENGTH_SHORT).show();
+                        }
+                        break;
 
 
-                    }
+                    case R.id.indicePeel:
+
+                        if (hintUsed == 2) {
+                            Toast.makeText(this, "Hint already used", Toast.LENGTH_SHORT).show();
+                        } else {
+                            LinearLayout mHintPeel = (LinearLayout) findViewById(R.id.hintPeel);
+                            mHintPeel.setVisibility(LinearLayout.VISIBLE);
+                            Toast.makeText(this, "You take Second HINT.", Toast.LENGTH_SHORT).show();
+                            hintdeduction++;
+                            hintUsed = 2;
+                            counter -= hintdeduction;
+                            //add hint true or false  for hint
+                            TextView tv1=findViewById(R.id.hintPeel1);
+                            tv1.setText(seedPeelHints.get(0)[0]);
+                            TextView tv2=findViewById(R.id.hintPeel2);
+                            tv2.setText(seedPeelHints.get(0)[1]);
+                            TextView tv3=findViewById(R.id.hintPeel3);
+                            tv3.setText(seedPeelHints.get(0)[2]);
+                            TextView tv4=findViewById(R.id.hintPeel4);
+                            tv4.setText(seedPeelHints.get(0)[3]);
+                            Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
+
+
+                        }
+                }
+                updateCounter();
             }
-        } else {
-            Toast.makeText(this, "You already used alL Hints", Toast.LENGTH_SHORT).show();
-        }
-        updateCounter();
+            } else{
+                Toast.makeText(this, "You already used alL Hints", Toast.LENGTH_SHORT).show();
+            }
+
+
+
 
         return false;
     }

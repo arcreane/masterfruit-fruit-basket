@@ -92,28 +92,32 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/boolean1"
+                        android:id="@+id/hintSeed1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean2"
+                        android:id="@+id/hintSeed2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean3"
+                        android:id="@+id/hintSeed3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean4"
+                        android:id="@+id/hintSeed4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
                 </TableRow>
 
             </TableLayout>
@@ -141,28 +145,32 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/boolean5"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean6"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel2"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean7"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel3"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean8"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel4"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text=""
+                        android:padding="5dp"/>
                 </TableRow>
 
             </TableLayout>
