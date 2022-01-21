@@ -90,6 +90,10 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
+        Button resign = findViewById(R.id.cancel_btn);
+        validate.setOnClickListener(action-> {
+            ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
+        });
     }
 
     private void RestartGame(){
@@ -177,10 +181,19 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        getPlayerName();
+
                     }
                 });
         alertDialog.show();
@@ -199,9 +212,9 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         StartNewSet();
-                        Intent swithToActivity = new Intent(GameBoard.this, GameBoard.class);
-                        swithToActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(swithToActivity);
+                        Intent switchToActivity = new Intent(GameBoard.this, GameBoard.class);
+                        switchToActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(switchToActivity);
                     }
                 });
 
