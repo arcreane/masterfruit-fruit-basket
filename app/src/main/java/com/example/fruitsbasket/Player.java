@@ -42,8 +42,14 @@ public class Player {
 
     public void addScore(int score) {
         this.score += score;
-        if(score !=0)
-            this.nbGames_won ++;
+    }
+
+    public void setNbGames_won(int nbGames_won) {
+        this.nbGames_won = nbGames_won;
+    }
+
+    public void addGames_won() {
+        this.nbGames_won ++;
     }
 
     public int getScore() {

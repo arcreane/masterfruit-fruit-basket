@@ -27,8 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fruitsbasket.history_view_holder.MyRecyclerViewAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
@@ -52,7 +54,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     @Override
     protected void onStop() {
         super.onStop();
-        ShowAlertBox("Warning", "Are you sure sure you want to quit ?" );
+
         Log.d("Verification: ", "onStop event");
     }
 
@@ -95,11 +97,16 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
+        Button resign = findViewById(R.id.cancel_btn);
+        validate.setOnClickListener(action-> {
+            ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
+        });
     }
 
     private void RestartGame(){
         playerImageset = new ImageSet();
-        currentPlayer=  new Player("unknown", 0);
+        currentPlayer=  new Player();
+        currentPlayer.setScore(0);
         StartNewSet();
 
         TextView mtv = findViewById(R.id.ScoreValue);
@@ -131,6 +138,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         ImageView Fruit_Four = findViewById(R.id.Player_Fruit4);
         Fruit_Four.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
         GameCombination = Game.generateFruitCombination();
+
         seedPeelHints = Game.generateHints(GameCombination);
         PlayerCombination = new ArrayList<>();
         for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
@@ -139,6 +147,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         hintdeduction = 1;
         hintUsed=0;
         counter = 10;
+        TextView mtv= findViewById(R.id.triesLeft);
+        mtv.setText("" + counter);
         chosenFruit = new int[4];
         setOfFruit = new ArrayList<>();
         Toast.makeText(this, "Hello " + currentPlayer.getPlayer_name() + " you got " + currentPlayer.getScore() + " points", Toast.LENGTH_LONG).show();
@@ -149,15 +159,11 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         adapter = new MyRecyclerViewAdapter(this, setOfFruit);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
     }
 
     private void updateCounter() {
         TextView counterDisplay = findViewById(R.id.triesLeft);
         counterDisplay.setText("" + counter);
-
-
-
     }
 
     private void checkGameStatus() {
@@ -165,12 +171,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         TextView ScoreTxt = findViewById(R.id.ScoreValue);
         int score = currentPlayer.getScore() + counter;
         ScoreTxt.setText("" + score);
-        currentPlayer.addScore(score);
+        currentPlayer.setScore(score);
         String typicalMessage = "Choose your next step :\n- 'Start new set' to continue the current game \n- 'Restart game' to restart \n-  'Quit' to close";
         for (int i = 0; i <4; i++) {
             if(CombinationCheck[i].equals("V")) Vcount ++;
         }
         if(Vcount == 4){
+            currentPlayer.addGames_won();
             TerminateCurrentGame("Set is won", "Congratulations. " + typicalMessage);
         }else if(counter <= 0){
             TerminateCurrentGame("You loose", "Try again !" + typicalMessage);
@@ -182,10 +189,19 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        getPlayerName();
+
                     }
                 });
         alertDialog.show();
@@ -204,9 +220,9 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         StartNewSet();
-                        Intent swithToActivity = new Intent(GameBoard.this, GameBoard.class);
-                        swithToActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(swithToActivity);
+                        Intent switchToActivity = new Intent(GameBoard.this, GameBoard.class);
+                        switchToActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(switchToActivity);
                     }
                 });
 
@@ -235,7 +251,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     }
 
     private void getPlayerName() {
-        if(currentPlayer.getPlayer_name().equals("unknown")) {
+        if(currentPlayer.getPlayer_name() == null) {
             getPlayerNameDialog(new OnSubmitBtnClick() {
                 @Override
                 public void onClick(String PlayerName) {
@@ -244,7 +260,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     }else {
                         currentPlayer.setPlayer_name(PlayerName);
                         System.out.println("name = " + currentPlayer.getPlayer_name());
-                        Toast.makeText(GameBoard.this, "your name is " + PlayerName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GameBoard.this, "Saving " + PlayerName + " score ", Toast.LENGTH_SHORT).show();
                     }
                 }
 
