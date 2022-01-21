@@ -1,5 +1,6 @@
 package com.example.fruitsbasket;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -50,10 +51,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
     Player currentPlayer;
 
+    RegisteredScore score;
+
 
     @Override
     protected void onStop() {
         super.onStop();
+        //ShowAlertBox("Warning", "Are you sure sure you want to quit ?" );
 
         Log.d("Verification: ", "onStop event");
     }
@@ -98,7 +102,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         });
 
         Button resign = findViewById(R.id.cancel_btn);
-        validate.setOnClickListener(action-> {
+        resign.setOnClickListener(action-> {
             ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
         });
     }
@@ -215,6 +219,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.setMessage(message);
         alertDialog.setCanceledOnTouchOutside(false);
 
+
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "START A NEW SET",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -225,12 +230,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                         startActivity(switchToActivity);
                     }
                 });
-
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "RESTART GAME",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         getPlayerName();
+                        //Register score in BDD
+                        System.out.println("Player name"+currentPlayer.getPlayer_name());
                         RestartGame();
                     }
                 });
@@ -247,10 +253,12 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 //                        System.exit(1);
                     }
                 });
+
         alertDialog.show();
     }
 
     private void getPlayerName() {
+        Context context = this;
         if(currentPlayer.getPlayer_name() == null) {
             getPlayerNameDialog(new OnSubmitBtnClick() {
                 @Override
@@ -260,12 +268,18 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     }else {
                         currentPlayer.setPlayer_name(PlayerName);
                         System.out.println("name = " + currentPlayer.getPlayer_name());
+                        System.out.println("Score = " + currentPlayer.getScore());
+                        System.out.println("won = " + currentPlayer.nbGames_won);
                         Toast.makeText(GameBoard.this, "Saving " + PlayerName + " score ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GameBoard.this, "your name is " + PlayerName, Toast.LENGTH_SHORT).show();
+                        score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.nbGames_won, currentPlayer.getScore());
+                        Scores.addScoreToBDD(context, score);
                     }
                 }
-
             });
         }
+
+
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -333,7 +347,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     public boolean onOptionsItemSelected(MenuItem item) {
         if (hintdeduction < 3) {
 
-            //limitid used Hint if you have 2 tries or 3tries
+            //limited used Hint if you have 2 tries or 3tries
             if ((hintUsed == 1 && counter <= 2) || (hintUsed == 2 && counter <= 3)) {
                 Toast.makeText(this, "Not enough tries left", Toast.LENGTH_SHORT).show();
 
@@ -454,10 +468,6 @@ public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
         String userText = editText.getText().toString();
         alert.dismiss();
         submitBtnClick.onClick(userText);
-
-        //Register score in BDD
-        RegisteredScore Score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.nbGames_won, currentPlayer.getScore());
-        Scores.addScoreToBDD(this, Score);
     });
 
     CancelBtn.setOnClickListener(action -> {
