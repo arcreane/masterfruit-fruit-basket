@@ -37,13 +37,13 @@ public class Scores extends AppCompatActivity {
                 R.layout.list_item_score_layout, scoreListData) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
-                View view = super.getView(position, convertView,parent);
+                View view = super.getView(position, convertView, parent);
                 TextView name = view.findViewById(R.id.tvName);
                 TextView wons = view.findViewById(R.id.tvWons);
                 TextView score = view.findViewById(R.id.tvScore);
-                name.setText((CharSequence) scoreListData.get(3));
-                wons.setText((CharSequence) scoreListData.get(1));
-                score.setText((CharSequence) scoreListData.get(2));
+                name.setText(scoreListData.get(3).toString());
+                wons.setText(scoreListData.get(1).toString());
+                score.setText(scoreListData.get(2).toString());
                 return view;
             }
         } ;
