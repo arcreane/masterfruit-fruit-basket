@@ -2,7 +2,10 @@ package com.example.fruitsbasket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -10,8 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Scores extends AppCompatActivity {
+    private LayoutInflater layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,33 +26,24 @@ public class Scores extends AppCompatActivity {
 
         ListView scoreListView = (ListView) findViewById(R.id.scoreListV);
 
-        RegisteredScore Score1 = new RegisteredScore("Pipi", "2022/01/17", 0);
-        RegisteredScore Score2 = new RegisteredScore("Popo", "2022/01/04", 9);
+        RegisteredScore Score1 = new RegisteredScore("Pipi", 0, 0);
+        RegisteredScore Score2 = new RegisteredScore("Popo", 6, 9);
 
-        ScoreBDD scoreBdd = new ScoreBDD(this);
-        scoreBdd.openForWrite();
+        ScoreBDD scoreBDD = new ScoreBDD(this);
+        scoreBDD.openForWrite();
+        //scoreBdd.dropTable();
         //scoreBdd.removeScore("Popo");
-        scoreBdd.insertScore(Score1);
-        //scoreBdd.updateScore(1, Score2);
+        scoreBDD.insertScore(Score1);
+        //scoreBDD.insertScore(Score2);
         //scoreBdd.removeScore("Lulu");
 
-        ArrayList<RegisteredScore> scoreListData = scoreBdd.getAllScores();
-        scoreBdd.close();
+        ArrayList<RegisteredScore> scoreListData = scoreBDD.getAllScores();
+        scoreBDD.close();
 
         ArrayAdapter<RegisteredScore> adapter = new ArrayAdapter<RegisteredScore>(this,
-                R.layout.list_item_score_layout, scoreListData) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent){
-                View view = super.getView(position, convertView, parent);
-                TextView name = view.findViewById(R.id.tvName);
-                TextView wons = view.findViewById(R.id.tvWons);
-                TextView score = view.findViewById(R.id.tvScore);
-                name.setText(scoreListData.get(3).toString());
-                wons.setText(scoreListData.get(1).toString());
-                score.setText(scoreListData.get(2).toString());
-                return view;
-            }
-        } ;
+                android.R.layout.simple_list_item_1, scoreListData);
         scoreListView.setAdapter(adapter);
     }
+
+
 }
