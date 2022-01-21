@@ -115,7 +115,7 @@ public class ScoreBDD {
 
     public ArrayList<RegisteredScore> getAllScores(){
         Cursor c = bdd.query(TABLE_SCORE, new String[]{
-                COL_ID, COL_NAME, COL_WONS, COL_SCORE}, null, null, null, null, COL_SCORE);
+                COL_ID, COL_NAME, COL_WONS, COL_SCORE}, null, null, null, null, COL_SCORE + " DESC");
         if(c.getCount() == 0){
             c.close();
             return null;
