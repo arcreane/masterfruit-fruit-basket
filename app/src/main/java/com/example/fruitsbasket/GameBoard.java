@@ -49,9 +49,9 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     int counter;
     int[] chosenFruit;
 
-    Player currentPlayer;
+    public Player currentPlayer;
 
-    RegisteredScore score;
+    Context context = this;
 
 
     @Override
@@ -68,6 +68,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
         //Find the images where we put the context view menu
+
+
         BoardInit();
         RestartGame();
 
@@ -223,6 +225,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
     // Terminate the game: alerts, storing player name/score if validated
     private void TerminateCurrentGame(String title, String message) {
+
         int score = currentPlayer.getScore() + counter;
         TextView ScoreTxt = findViewById(R.id.ScoreValue);
         ScoreTxt.setText("" + score);
@@ -232,6 +235,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
         alertDialog.setMessage(message);
         alertDialog.setCanceledOnTouchOutside(false);
+
 
 
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "START A NEW SET",
@@ -251,8 +255,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                         getPlayerName();
                         //Register score in BDD
                         System.out.println("Player name"+currentPlayer.getPlayer_name());
-
-
                         RestartGame();
                     }
                 });
@@ -271,12 +273,15 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 });
 
         alertDialog.show();
+        System.out.println("Dans terminate game" +currentPlayer.getPlayer_name());
+
     }
 
 
     // set the player name and store player def into SQLite
     private void getPlayerName() {
         if(currentPlayer.getPlayer_name() == null) {
+            System.out.println("au début de getPalyerScore"+currentPlayer.getScore());
             getPlayerNameDialog(new OnSubmitBtnClick() {
                 @Override
                 public void onClick(String PlayerName) {
@@ -285,10 +290,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     }else {
                         currentPlayer.setPlayer_name(PlayerName);
                         System.out.println("name = " + currentPlayer.getPlayer_name());
+                        System.out.println(currentPlayer.getScore());
+                        RegisteredScore r_score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.getScore(), currentPlayer.nbGames_won);
+                        if(r_score.getName() != null)
+                            Scores.addScoreToBDD(context, r_score);
                         Toast.makeText(GameBoard.this, "Saving " + PlayerName + " score ", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             });
         }
     }
@@ -479,6 +487,8 @@ public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
         alert.dismiss();
         submitBtnClick.onClick(userText);
     });
+
+
 
     CancelBtn.setOnClickListener(action -> {
         alert.dismiss();
