@@ -35,38 +35,35 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     MyRecyclerViewAdapter adapter;
     ImageSet playerImageset;
     ImageView focus;
-    ArrayList<ImageSet> setOfFruit = new ArrayList<>();
+//    ArrayList<ImageSet> setOfFruit = new ArrayList<>();
+    ArrayList<ImageSet> setOfFruit;
     ArrayList<Fruits> GameCombination = new ArrayList<>();
-    ArrayList<Fruits> PlayerCombination = new ArrayList<>();
+    ArrayList<Fruits> PlayerCombination;
     String[] CombinationCheck = new String[4];
-    int hintdeduction = 1;
-    int hintUsed=0;
+    int hintdeduction;
+    int hintUsed;
 
-    int counter = 10;
-    int[] chosenFruit = new int[4];
+    int counter;
+    int[] chosenFruit;
 
-    Player currentPlayer=  new Player("unknown", 0);
+    Player currentPlayer;
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ShowAlertBox("Warning", "Are you sure sure you want to quit ?" );
+        Log.d("Verification: ", "onStop event");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
         //Find the images where we put the context view menu
-        ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
-        ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);
-        ImageView Fruit_Tree = findViewById(R.id.Player_Fruit3);
-        ImageView Fruit_Four = findViewById(R.id.Player_Fruit4);
-
-        registerForContextMenu(Fruit_One);
-        registerForContextMenu(Fruit_Two);
-        registerForContextMenu(Fruit_Tree);
-        registerForContextMenu(Fruit_Four);
-        playerImageset = new ImageSet();
-
-        GameCombination = Game.generateFruitCombination();
-        for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
-        //Toast.makeText(this, ""+ Arrays.toString(Game.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
-
+        BoardInit();
+        RestartGame();
 
         /** Button VALIDATE
          * Get the user proposal onClick Validate Button returns an ImageSet for the recycle view
@@ -88,8 +85,55 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 checkGameStatus();
             }
 
-            Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
+
+    }
+
+    private void RestartGame(){
+        playerImageset = new ImageSet();
+        currentPlayer=  new Player("unknown", 0);
+        StartNewSet();
+
+        TextView mtv = findViewById(R.id.ScoreValue);
+        mtv.setText("0");
+
+        Toast.makeText(this, "Welcome " + currentPlayer.getPlayer_name() + " you got " + currentPlayer.getScore() + " points", Toast.LENGTH_LONG).show();
+    }
+
+    private void BoardInit(){
+        ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
+        ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);
+        ImageView Fruit_Tree = findViewById(R.id.Player_Fruit3);
+        ImageView Fruit_Four = findViewById(R.id.Player_Fruit4);
+
+        registerForContextMenu(Fruit_One);
+        registerForContextMenu(Fruit_Two);
+        registerForContextMenu(Fruit_Tree);
+        registerForContextMenu(Fruit_Four);
+
+    }
+
+    private void StartNewSet(){
+        ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
+        Fruit_One.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
+        ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);
+        Fruit_Two.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
+        ImageView Fruit_Three = findViewById(R.id.Player_Fruit3);
+        Fruit_Three.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
+        ImageView Fruit_Four = findViewById(R.id.Player_Fruit4);
+        Fruit_Four.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
+        GameCombination = Game.generateFruitCombination();
+        PlayerCombination = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {PlayerCombination.add(Fruits.EMPTY);}
+
+        //Toast.makeText(this, ""+ Arrays.toString(Game.verification(GameCombination,PlayerCombination)),Toast.LENGTH_SHORT).show();
+        hintdeduction = 1;
+        hintUsed=0;
+        counter = 10;
+        chosenFruit = new int[4];
+        setOfFruit = new ArrayList<>();
+        Toast.makeText(this, "Hello " + currentPlayer.getPlayer_name() + " you got " + currentPlayer.getScore() + " points", Toast.LENGTH_LONG).show();
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.player_guess_list);
@@ -98,8 +142,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        TextView mtv = findViewById(R.id.ScoreValue);
-        mtv.setText("" + adapter.getItemCount());
     }
 
     private void updateCounter() {
@@ -113,7 +155,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         int score = currentPlayer.getScore() + counter;
         ScoreTxt.setText("" + score);
         currentPlayer.addScore(score);
-        String typicalMessage = "Choose your next step :\nStart new set to continue the current game \nor Restart game to restart \nand Quit to Close";
+        String typicalMessage = "Choose your next step :\n- 'Start new set' to continue the current game \n- 'Restart game' to restart \n-  'Quit' to close";
         for (int i = 0; i <4; i++) {
             if(CombinationCheck[i].equals("V")) Vcount ++;
         }
@@ -146,11 +188,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.setMessage(message);
         alertDialog.setCanceledOnTouchOutside(false);
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "START A NEW GAME",
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "START A NEW SET",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        StartNewSet();
                         Intent swithToActivity = new Intent(GameBoard.this, GameBoard.class);
+                        swithToActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(swithToActivity);
                     }
                 });
@@ -160,20 +204,20 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         getPlayerName();
-                        //navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
+                        RestartGame();
                     }
-
                 });
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "QUIT GAME",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                        homeIntent.addCategory( Intent.CATEGORY_HOME );
-                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(homeIntent);
-                        System.exit(1);
+                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
+//                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+//                        homeIntent.addCategory( Intent.CATEGORY_HOME );
+//                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(homeIntent);
+//                        System.exit(1);
                     }
                 });
         alertDialog.show();
@@ -329,8 +373,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             chosenFruit[id] = fruit.getFruitIcon();
             focus.setImageResource(fruit.getFruitIcon());
             playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit.getFruitIcon()), id);
+            PlayerCombination.set(id, fruit);
         }
-        PlayerCombination.set(id, fruit);
     }
 /**
  * Dialog test
@@ -353,13 +397,11 @@ public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
         String userText = editText.getText().toString();
             alert.dismiss();
             submitBtnClick.onClick(userText);
-            navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
     });
 
     CancelBtn.setOnClickListener(action -> {
         alert.dismiss();
         submitBtnClick.onClick("skip");
-        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
     });
     try{
         alert.show();
