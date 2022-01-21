@@ -17,15 +17,15 @@ public class Scores extends AppCompatActivity {
 
         ListView scoreListView = (ListView) findViewById(R.id.scoreListV);
 
-        RegisteredScore Score1 = new RegisteredScore("Lala", "2022/01/17", 10);
+        RegisteredScore Score1 = new RegisteredScore("Pipi", "2022/01/17", 0);
         RegisteredScore Score2 = new RegisteredScore("Popo", "2022/01/04", 9);
 
         ScoreBDD scoreBdd = new ScoreBDD(this);
         scoreBdd.openForWrite();
-        scoreBdd.removeScore("Popo");
-        //scoreBdd.insertScore(Score1);
-        //scoreBdd.updateScore(1, Score1);
-        //scoreBdd.removeScore("Lulu");
+        //scoreBdd.removeScore("Popo");
+        scoreBdd.insertScore(Score1);
+        scoreBdd.updateScore(1, Score2);
+        scoreBdd.removeScore("Lulu");
 
         ArrayList<RegisteredScore> scoreListData = scoreBdd.getAllScores();
         scoreBdd.close();
