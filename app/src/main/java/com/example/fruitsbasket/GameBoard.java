@@ -59,9 +59,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     }
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,16 +94,19 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             //Toast.makeText(this, ""+ Arrays.toString(playerImageset.getCheck()),Toast.LENGTH_SHORT).show();
         });
 
+        // Resign button : quit the game when needed
         Button BtnResign = findViewById(R.id.cancel_btn);
         BtnResign.setOnClickListener(action-> {
             ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
-            if(!currentPlayer.getPlayer_name().equals("")){
+            if(!currentPlayer.getPlayer_name().equals(null)|| currentPlayer.getScore() == 0){
                 Toast.makeText(this,"saving " + currentPlayer.getPlayer_name(), Toast.LENGTH_SHORT).show();
             }else Toast.makeText(this, "See you soon", Toast.LENGTH_SHORT).show();
-            navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
         });
     }
 
+    /*
+    Initialise the game parameter from beginning (new game)
+     */
     private void RestartGame(){
         playerImageset = new ImageSet();
         currentPlayer=  new Player();
@@ -119,6 +119,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         Toast.makeText(this, "Welcome " + currentPlayer.getPlayer_name() + " you got " + currentPlayer.getScore() + " points", Toast.LENGTH_LONG).show();
     }
 
+    // initialise the game board
     private void BoardInit(){
         ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
         ImageView Fruit_Two = findViewById(R.id.Player_Fruit2);
@@ -129,9 +130,11 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         registerForContextMenu(Fruit_Two);
         registerForContextMenu(Fruit_Tree);
         registerForContextMenu(Fruit_Four);
-
     }
 
+    /*
+    Initialise the game parameter from for a new set (new set)
+     */
     private void StartNewSet(){
         ImageView Fruit_One = findViewById(R.id.Player_Fruit1);
         Fruit_One.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.empty));
@@ -165,11 +168,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         recyclerView.setAdapter(adapter);
     }
 
+    // update counter - from Validate button or from hints selected
     private void updateCounter() {
         TextView counterDisplay = findViewById(R.id.triesLeft);
         counterDisplay.setText("" + counter);
     }
 
+    // check the game status each 'validate' turn, update parameters and check if won/lost
     private void checkGameStatus() {
         int Vcount = 0;
         TextView ScoreTxt = findViewById(R.id.ScoreValue);
@@ -186,8 +191,10 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         }else if(counter <= 0){
             TerminateCurrentGame("You loose", "Try again !" + typicalMessage);
         }
+        Toast.makeText(this, "name: " + currentPlayer.getPlayer_name() + " / " + currentPlayer.getScore(), Toast.LENGTH_SHORT).show();
     }
 
+    // show alert box when resigning button
     private void ShowAlertBox(String title, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(title);
@@ -197,6 +204,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
@@ -205,12 +213,14 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                         dialog.dismiss();
                         if( currentPlayer.getScore() != 0){
                             getPlayerName();
+                            navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
                         }
-                        }
+                    }
                 });
         alertDialog.show();
     }
 
+    // Terminate the game: alerts, storing player name/score if validated
     private void TerminateCurrentGame(String title, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(title);
@@ -253,6 +263,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.show();
     }
 
+    // set the player name and store player def into SQLite
     private void getPlayerName() {
         if(currentPlayer.getPlayer_name() == null) {
             getPlayerNameDialog(new OnSubmitBtnClick() {
@@ -271,6 +282,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         }
     }
 
+    // add a try to the recycler list
     private void appendRecycler(ImageSet playerImageset) {
             int insertIndex = 0;
             if(playerImageset == null){
@@ -283,11 +295,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     }
 
 
+    // display the item list selected - for future use
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
+    // menu for selecting a fruit - create
     @Override
     public void onCreateContextMenu(ContextMenu menu, View vue, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, vue, menuInfo);
@@ -297,6 +311,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         focus = (ImageView) vue;
     }
 
+    // menu for selecting a fruit - select item
     @Override
     public boolean onContextItemSelected(MenuItem item){
         int id = 0;
@@ -341,9 +356,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 Toast.makeText(this, "Not enough tries left", Toast.LENGTH_SHORT).show();
 
             } else {
-
-
-
                 //we look who item is cliqued  and activate this action.
                 switch (item.getItemId()) {
                     case R.id.indiceSeed:
@@ -372,7 +384,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                         }
                         break;
 
-
                     case R.id.indicePeel:
 
                         if (hintUsed == 2) {
@@ -394,8 +405,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                             TextView tv4=findViewById(R.id.hintPeel4);
                             tv4.setText(seedPeelHints.get(0)[3]);
                             Toast.makeText(this, "vous avez perdu " + hintdeduction + " essais il vous reste : " + counter, Toast.LENGTH_SHORT).show();
-
-
                         }
                 }
                 updateCounter();
@@ -403,11 +412,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             } else{
                 Toast.makeText(this, "You already used alL Hints", Toast.LENGTH_SHORT).show();
             }
-
-
-
-
-
         return false;
     }
 
@@ -423,6 +427,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         alertDialog.show();
     }
 
+    // once a fruit is selected, update of variables and display
     private void updateSetOfFruit(Fruits fruit, int id) {
         boolean chosen = false;
         for (int i = 0; i < 4; i++) {
@@ -437,7 +442,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         }
     }
 /**
- * Dialog test
+ * Dialog to set a name for storing player score
  */
 public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(GameBoard.this);
