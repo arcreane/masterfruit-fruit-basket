@@ -176,9 +176,10 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         int score = currentPlayer.getScore() + counter;
         ScoreTxt.setText("" + score);
         currentPlayer.setScore(score);
+        System.out.println("Score dans checkGameStatus"+currentPlayer.getScore());
         String typicalMessage = "Choose your next step :\n- 'Start new set' to continue the current game \n- 'Restart game' to restart \n-  'Quit' to close";
         for (int i = 0; i <4; i++) {
-            if(CombinationCheck[i].equals("V")) Vcount ++;
+            if(CombinationCheck[i].equals("V")) Vcount++;
         }
         if(Vcount == 4){
             currentPlayer.addGames_won();
