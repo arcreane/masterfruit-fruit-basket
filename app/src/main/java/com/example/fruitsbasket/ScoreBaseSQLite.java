@@ -8,16 +8,17 @@ public class ScoreBaseSQLite extends SQLiteOpenHelper {
     private static final String TABLE_SCORES = "Tables_scores";
     private static final String COL_ID = "ID";
     private static final String COL_NAME = "Name";
-    private static final String COL_DATE = "Date";
+    private static final String COL_WONS = "Wons";
     private static final String COL_SCORE = "Scores";
 
     private static final String CREATE_BDD = "CREATE TABLE "+ TABLE_SCORES +
             " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            COL_NAME + " TEXT NOT NULL, " + COL_DATE + " TEXT NOT NULL, " +
+            COL_NAME + " TEXT NOT NULL, " + COL_WONS + " INTEGER, " +
             COL_SCORE + " INTEGER); ";
 
     public ScoreBaseSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
+
     }
 
     @Override

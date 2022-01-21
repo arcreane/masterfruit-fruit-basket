@@ -4,13 +4,14 @@ public class RegisteredScore {
     private int id;
     int score;
     private String name;
-    private String date;
+    private int wons;
+
 
     public RegisteredScore(){}
 
-    public RegisteredScore(String p_name, String p_date, int p_score) {
+    public RegisteredScore(String p_name, int p_wons, int p_score) {
         this.name = p_name;
-        this.date = p_date;
+        this.wons = p_wons;
         this.score = p_score;
     }
 
@@ -23,8 +24,8 @@ public class RegisteredScore {
         return name;
     }
 
-    public String getDate() {
-        return date;
+    public int getWons() {
+        return wons;
     }
 
     public int getScore() {
@@ -44,15 +45,15 @@ public class RegisteredScore {
         this.name = name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setWons(int wons) {
+        this.wons = wons;
     }
 
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(date +" - Player's name: "+ name + "\nScore: "+ score);
+        sb.append(name +" "+ wons + " "+ score);
         return sb.toString();
     }
 }
