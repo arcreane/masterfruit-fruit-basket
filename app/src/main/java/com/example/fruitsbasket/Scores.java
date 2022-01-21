@@ -26,24 +26,32 @@ public class Scores extends AppCompatActivity {
 
         ListView scoreListView = (ListView) findViewById(R.id.scoreListV);
 
-        RegisteredScore Score1 = new RegisteredScore("Pipi", 0, 0);
-        RegisteredScore Score2 = new RegisteredScore("Popo", 6, 9);
+        //RegisteredScore Score1 = new RegisteredScore("Pipi", 0, 0);
 
         ScoreBDD scoreBDD = new ScoreBDD(this);
         scoreBDD.openForWrite();
-        //scoreBdd.dropTable();
-        //scoreBdd.removeScore("Popo");
-        scoreBDD.insertScore(Score1);
-        //scoreBDD.insertScore(Score2);
-        //scoreBdd.removeScore("Lulu");
-
         ArrayList<RegisteredScore> scoreListData = scoreBDD.getAllScores();
         scoreBDD.close();
-
-        ArrayAdapter<RegisteredScore> adapter = new ArrayAdapter<RegisteredScore>(this,
-                android.R.layout.simple_list_item_1, scoreListData);
-        scoreListView.setAdapter(adapter);
+        if(scoreListData != null) {
+            ArrayAdapter<RegisteredScore> adapter = new ArrayAdapter<RegisteredScore>(this,
+                    android.R.layout.simple_list_item_1, scoreListData);
+            scoreListView.setAdapter(adapter);
+        }
     }
+
+    public static void addScoreToBDD(Context context, RegisteredScore p_score){
+        ScoreBDD scoreBDD = new ScoreBDD(context);
+        scoreBDD.openForWrite();
+        scoreBDD.insertScore(p_score);
+        scoreBDD.close();
+    }
+
+    //scoreBdd.dropTable();
+    //scoreBDD.removeScore("Lulu");
+    //scoreBDD.removeScore("unknown");
+    //scoreBDD.insertScore(Score1);
+    //scoreBDD.insertScore(Score2);
+    //scoreBdd.removeScore("Lulu");
 
 
 }

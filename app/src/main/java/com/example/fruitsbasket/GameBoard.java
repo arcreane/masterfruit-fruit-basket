@@ -436,8 +436,12 @@ public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
 
     OKBtn.setOnClickListener(action -> {
         String userText = editText.getText().toString();
-            alert.dismiss();
-            submitBtnClick.onClick(userText);
+        alert.dismiss();
+        submitBtnClick.onClick(userText);
+
+        //Register score in BDD
+        RegisteredScore Score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.nbGames_won, currentPlayer.getScore());
+        Scores.addScoreToBDD(this, Score);
     });
 
     CancelBtn.setOnClickListener(action -> {
