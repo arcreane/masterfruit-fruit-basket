@@ -1,36 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GameBoard"
-    android:padding="10dp">
-
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Scores List"
-            android:textSize="30dp"
-            android:textColor="@color/purple_700"/>
-    </LinearLayout>
+    android:layout_height="wrap_content">
 
     <TableLayout
         android:layout_width="match_parent"
-        android:id="@+id/itemviewTitle"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:stretchColumns="*"
-        android:layout_below="@id/title" >
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -61,9 +38,4 @@
     </TableLayout>
 
 
-    <ListView
-        android:id="@+id/scoreListV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/itemviewTitle" />
 </RelativeLayout>
