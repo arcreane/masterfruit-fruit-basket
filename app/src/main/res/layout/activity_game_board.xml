@@ -54,15 +54,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/guess_list_layout"
         android:layout_width="match_parent"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
         android:layout_height="400sp"
         android:layout_below="@+id/ScoreLayout"
         app:layout_constraintTop_toBottomOf="@id/ScoreLayout"
         app:layout_constraintBottom_toTopOf="@+id/hintLayout">
-=======
-        android:layout_height="550dp"
-        android:layout_below="@id/ScoreLayout">
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/player_guess_list"
@@ -79,16 +75,9 @@
         android:id="@+id/hintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
         android:gravity="bottom"
         android:orientation="vertical"
         android:layout_above="@+id/guessLayout">
-=======
-        android:layout_below="@id/player_guess_list"
-        android:visibility="gone"
-        android:orientation="vertical">
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
-
 
         <LinearLayout
             android:id="@+id/hintSeed"
@@ -103,69 +92,56 @@
                 android:id="@+id/firstHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
-                android:text="Without Seeds"
-                android:textSize="16sp" />
-=======
+                android:textAlignment="center"
+                android:gravity="center"
                 android:textSize="16dp"
                 android:text="With Seeds" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:gravity="center">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/boolean1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintSeed1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
+                        android:textSize="12sp"
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:padding="5dp"
+                        android:textAlignment="center"/>
+
 
                     <TextView
-                        android:id="@+id/boolean2"
+                        android:id="@+id/hintSeed2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
+                        android:textSize="12sp"
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:padding="5dp"/>
+
 
                     <TextView
-                        android:id="@+id/boolean3"
+                        android:id="@+id/hintSeed3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
+                        android:textSize="12sp"
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean4"
+                        android:id="@+id/hintSeed4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
+                        android:textSize="12sp"
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:padding="5dp"/>
                 </TableRow>
 
             </TableLayout>
@@ -182,64 +158,50 @@
                 android:id="@+id/secondHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
-                android:text="Peelable"
-                android:textSize="16sp" />
-=======
                 android:textSize="16dp"
                 android:text="Peelable" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:stretchColumns="*"
+                android:layout_gravity="center">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/boolean5"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
+                        android:textSize="12sp"
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean6"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel2"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:text="" />
+                        android:textSize="12dp"
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean7"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel3"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
-                        android:text=""
                         android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:text=""
+                        android:padding="5dp"/>
 
                     <TextView
-                        android:id="@+id/boolean8"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hintPeel4"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_game_board.xml
                         android:text=""
-                        android:textSize="12sp" />
-=======
-                        android:textSize="16dp"
-                        android:text="" />
->>>>>>> endofgame:app/src/main/res/layout/activity_game_play.xml
+                        android:textSize="12sp"
+                        android:padding="5dp"/>
                 </TableRow>
 
             </TableLayout>
