@@ -146,8 +146,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         //Update PlayerCombination and array for recycler view
         for(Fruits f : Fruits.values()) {
             if(f.getMenuiId() == selectedFruit) {
-                updateSetOfFruit(f.getFruitIcon(), id);
-                PlayerCombination.set(id, f);
+                updateSetOfFruit(f, id);
                 return true;
             }
         }
@@ -157,9 +156,9 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     //create hintMenu.
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
+        //create inflater menu for instance a menu  XML on object Menu.
         MenuInflater inflater = getMenuInflater();
-        //Instanciation du menu XML spécifié en un objet Menu
+        //instantiation menu XML specified  objet Menu
         inflater.inflate(R.menu.hint_option_menu, menu);
         return true;
 
@@ -260,16 +259,17 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
 
 
-    private void updateSetOfFruit(int fruit, int id) {
+    private void updateSetOfFruit(Fruits fruit, int id) {
         boolean chosen = false;
         for (int i = 0; i < 4; i++) {
-            if(chosenFruit[i] == fruit) {chosen = true;}
+            if(chosenFruit[i] == fruit.getFruitIcon()) {chosen = true;}
         }
-        if(chosen && fruit != Fruits.EMPTY.getFruitIcon()) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
+        if(chosen && fruit.getFruitIcon() != Fruits.EMPTY.getFruitIcon()) Toast.makeText(this, "Already chosen", Toast.LENGTH_LONG).show();
         else {
-            chosenFruit[id] = fruit;
-            focus.setImageResource(fruit);
-            playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit), id);
+            chosenFruit[id] = fruit.getFruitIcon();
+            focus.setImageResource(fruit.getFruitIcon());
+            playerImageset.setImage(BitmapFactory.decodeResource(getResources(), fruit.getFruitIcon()), id);
+            PlayerCombination.set(id, fruit);
         }
     }
 

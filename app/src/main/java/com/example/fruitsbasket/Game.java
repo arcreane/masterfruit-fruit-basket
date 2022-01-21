@@ -1,5 +1,7 @@
 package com.example.fruitsbasket;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,30 +65,35 @@ public class Game {
     public static String[] verification(ArrayList < Fruits > combination, ArrayList < Fruits > proposal) {
         String[] evaluation = new String[4];
         int index = 0;
+        int nbV=0;
+        int nbX=0;
 
+        for (int i = 0; i < 4 ; i++) {
+            evaluation[i]="O";
+        }
         for (int i = 0; i < 4; i++) {System.out.println(i +": " + proposal.get(i) + " / " + combination.get(i));}
 
         for (int i = 0; i < 4; i++) {
             Fruits playerFruit = proposal.get(i);
             for (int j = 0; j < 4; j++) {
                 Fruits combinationFruits = combination.get(j);
-                if (playerFruit.equals(Fruits.EMPTY)) {
-                    evaluation[index] = ".";
-                    break;
-                } else if (combinationFruits == playerFruit) {
+                if (combinationFruits == playerFruit) {
+
                     if (i == j) {
-                        evaluation[index] = "V";
+                        nbV++;
                         break;
-                    } else {
-                        evaluation[index] = "X";
+                    } else{
+                        nbX++;
                         break;
                     }
-                } else {
-                    evaluation[index] = "O";
                 }
+
             }
-            index++;
         }
+        for (int i = 0; i< nbV; i++) evaluation[i]="V";
+        for (int i = nbV; i<nbX+nbV; i++) evaluation[i]="X";
+
+
         return evaluation;
     }
 }
