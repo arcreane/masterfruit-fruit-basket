@@ -177,10 +177,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     // check the game status each 'validate' turn, update parameters and check if won/lost
     private void checkGameStatus() {
         int Vcount = 0;
-        TextView ScoreTxt = findViewById(R.id.ScoreValue);
-        int score = currentPlayer.getScore() + counter;
-        ScoreTxt.setText("" + score);
-        currentPlayer.setScore(score);
         String typicalMessage = "Choose your next step :\n- 'Start new set' to continue the current game \n- 'Restart game' to restart \n-  'Quit' to close";
         for (int i = 0; i <4; i++) {
             if(CombinationCheck[i].equals("V")) Vcount ++;
@@ -222,6 +218,11 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
     // Terminate the game: alerts, storing player name/score if validated
     private void TerminateCurrentGame(String title, String message) {
+        int score = currentPlayer.getScore() + counter;
+        TextView ScoreTxt = findViewById(R.id.ScoreValue);
+        ScoreTxt.setText("" + score);
+        currentPlayer.setScore(score);
+
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(title);
         alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
