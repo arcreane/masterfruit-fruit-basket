@@ -18,26 +18,32 @@ public class Player {
                 "Your find all fruit ! You have " + point_Player +"");
     }
 
-    // if the player wants hint in exchange of tries
-    void chooseHint (int indice){
-        String HintOrNot="";
-        if(indice==1){
-            if(!hint1){
-                tries-=2;
-                System.out.println("You have chosen to have one clue against two attempts you have"+tries+"tries");
-            } else {
-                System.out.println("Hint already given");
-            }
-        }else if (indice==2) {
-            if(!hint2){
-                tries-=3;
-                System.out.println("You have chosen to have one clue against tree attempts you have"+tries+"tries");
-            } else {
-                System.out.println("Hint already given");
-            }
-        }else{
-            System.out.println("Hint value not manage");
-        }
+    public Player(){
+
+    }
+
+    public Player(String player_name, int score) {
+        this.player_name = player_name;
+        this.score = score;
+        this.nbGames_won = 0;
+    }
+
+    public String getPlayer_name() {
+        return player_name;
+    }
+
+    public void setPlayer_name(String player_name) {
+        this.player_name = player_name;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
+        if(score !=0)
+            this.nbGames_won ++;
     }
 
     public int getScore() {
