@@ -171,12 +171,13 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         TextView ScoreTxt = findViewById(R.id.ScoreValue);
         int score = currentPlayer.getScore() + counter;
         ScoreTxt.setText("" + score);
-        currentPlayer.addScore(score);
+        currentPlayer.setScore(score);
         String typicalMessage = "Choose your next step :\n- 'Start new set' to continue the current game \n- 'Restart game' to restart \n-  'Quit' to close";
         for (int i = 0; i <4; i++) {
             if(CombinationCheck[i].equals("V")) Vcount ++;
         }
         if(Vcount == 4){
+            currentPlayer.addGames_won();
             TerminateCurrentGame("Set is won", "Congratulations. " + typicalMessage);
         }else if(counter <= 0){
             TerminateCurrentGame("You loose", "Try again !" + typicalMessage);
