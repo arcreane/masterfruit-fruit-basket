@@ -22,10 +22,10 @@ public class Scores extends AppCompatActivity {
 
         ScoreBDD scoreBdd = new ScoreBDD(this);
         scoreBdd.openForWrite();
-        scoreBdd.removeScore("Popo");
-        //scoreBdd.insertScore(Score1);
-        //scoreBdd.updateScore(1, Score2);
-        //scoreBdd.removeScore("Lulu");
+        //scoreBdd.removeScore("Popo");
+        scoreBdd.insertScore(Score1);
+        scoreBdd.updateScore(1, Score2);
+        scoreBdd.removeScore("Lulu");
 
         ArrayList<RegisteredScore> scoreListData = scoreBdd.getAllScores();
         scoreBdd.close();
