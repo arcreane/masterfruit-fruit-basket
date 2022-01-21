@@ -104,6 +104,11 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
         Button resign = findViewById(R.id.cancel_btn);
         resign.setOnClickListener(action-> {
             ShowAlertBox("Sorry to see you quit", "Do you want to save your score ?");
+            if(currentPlayer.getPlayer_name() != null){
+                Toast.makeText(this,"saving " + currentPlayer.getPlayer_name(), Toast.LENGTH_SHORT).show();
+            }else Toast.makeText(this, "See you soon", Toast.LENGTH_SHORT).show();
+
+            navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
         });
     }
 
@@ -198,19 +203,18 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        navigateUpTo(new Intent(getBaseContext(), MainActivity.class));
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        getPlayerName();
-
-                    }
+                        if( currentPlayer.getScore() != 0){
+                            getPlayerName();
+                        }
+                        }
                 });
         alertDialog.show();
-
     }
 
     private void TerminateCurrentGame(String title, String message) {
@@ -256,31 +260,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
                 });
 
         alertDialog.show();
-    }
-
-    private void getPlayerName() {
-        Context context = this;
-        if(currentPlayer.getPlayer_name() == null) {
-            getPlayerNameDialog(new OnSubmitBtnClick() {
-                @Override
-                public void onClick(String PlayerName) {
-                    if(PlayerName.equals("skip")){
-                        Toast.makeText(GameBoard.this, "No name saved", Toast.LENGTH_SHORT).show();
-                    }else {
-                        currentPlayer.setPlayer_name(PlayerName);
-                        System.out.println("name = " + currentPlayer.getPlayer_name());
-                        System.out.println("Score = " + currentPlayer.getScore());
-                        System.out.println("won = " + currentPlayer.nbGames_won);
-                        Toast.makeText(GameBoard.this, "Saving " + PlayerName + " score ", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(GameBoard.this, "your name is " + PlayerName, Toast.LENGTH_SHORT).show();
-                        score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.nbGames_won, currentPlayer.getScore());
-                        Scores.addScoreToBDD(context, score);
-                    }
-                }
-            });
-        }
-
-
     }
 
     private void appendRecycler(ImageSet playerImageset) {
@@ -332,6 +311,7 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
     }
 
     //create hintMenu.
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //create inflater menu for instance a menu  XML on object Menu.
@@ -342,8 +322,8 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
     }
 
-
     //action for the click
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (hintdeduction < 3) {
@@ -422,7 +402,6 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
 
         return false;
     }
-
     /**
      * Shows a Dialog box when Player validates his board with empty spaces
      */
@@ -448,7 +427,31 @@ public class GameBoard extends AppCompatActivity implements MyRecyclerViewAdapte
             PlayerCombination.set(id, fruit);
         }
     }
-/**
+
+    private void getPlayerName() {
+        Context context = this;
+        if(currentPlayer.getPlayer_name() == null) {
+            getPlayerNameDialog(new OnSubmitBtnClick() {
+                @Override
+                public void onClick(String PlayerName) {
+                    if(PlayerName.equals("skip")){
+                        Toast.makeText(GameBoard.this, "No name saved", Toast.LENGTH_SHORT).show();
+                    }else {
+                        currentPlayer.setPlayer_name(PlayerName);
+                        //currentPlayer.addScore(counter);
+                        Toast.makeText(GameBoard.this, "Saving " + PlayerName + " score ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GameBoard.this, "your name is " + PlayerName, Toast.LENGTH_SHORT).show();
+                        score = new RegisteredScore(currentPlayer.getPlayer_name(), currentPlayer.nbGames_won, currentPlayer.getScore());
+                        Scores.addScoreToBDD(context, score);
+                    }
+                }
+            });
+        }
+
+
+    }
+
+    /**
  * Dialog test
  */
 public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
@@ -481,5 +484,4 @@ public void getPlayerNameDialog(OnSubmitBtnClick submitBtnClick) {
         System.out.println("Exception: " +  e.getMessage());
     }
 }
-
 }
